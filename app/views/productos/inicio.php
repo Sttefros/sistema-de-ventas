@@ -101,6 +101,13 @@
             <div class="modal-body">
                 <form class="form-horizontal form-bordered" id="valid_prod">
                     <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">SKU</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sku" name="sku" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Nombre</label>
 
                         <div class="col-sm-9">
@@ -165,6 +172,13 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form-bordered" id="Evalid_prod">
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">SKU</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Esku" name="Esku" placeholder="" >
+                        </div>            
+                    </div>
                     <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Nombre</label>
 
@@ -285,6 +299,7 @@ $("#nueva_prod").click(function () {
                     
                 });
                 $("#myModal").modal('hide');
+                var sku = $("#sku").val();
                 var nombre_producto = $("#nombre_producto").val();
                 var id_prod_tipo = $("#id_prod_tipo").val();
                 var id_proveedor = $("#id_proveedor").val();
@@ -296,7 +311,7 @@ $("#nueva_prod").click(function () {
                  $.ajax({
                      type: "POST",
                      url: url,
-                     data: {nombre_producto: nombre_producto, id_proveedor:id_proveedor,id_prod_tipo:id_prod_tipo,cantidad:cantidad,precio_venta:precio_venta,descripcion_producto:descripcion_producto},
+                     data: {sku: sku, nombre_producto: nombre_producto, id_proveedor:id_proveedor,id_prod_tipo:id_prod_tipo,cantidad:cantidad,precio_venta:precio_venta,descripcion_producto:descripcion_producto},
                      success: function (data) {
                           console.log('Correctoooo');
                            setTimeout(function(){
@@ -328,6 +343,7 @@ $("#nueva_prod").click(function () {
                 });
                 $("#ModalEditar").modal('hide');
                 var id_producto = $("#Eid_producto").val();
+                var sku = $("#Esku").val();
                 var nombre_producto = $("#Enombre_producto").val();
                 var id_prod_tipo = $("#Eid_prod_tipo").val();
                 var id_proveedor = $("#Eid_proveedor").val();
@@ -339,7 +355,7 @@ $("#nueva_prod").click(function () {
                  $.ajax({
                      type: "POST",
                      url: url,
-                     data: {id_producto: id_producto,nombre_producto: nombre_producto, id_proveedor:id_proveedor,id_prod_tipo:id_prod_tipo,cantidad:cantidad,precio_venta:precio_venta,descripcion_producto:descripcion_producto},
+                     data: {id_producto: id_producto,sku: sku, nombre_producto: nombre_producto, id_proveedor:id_proveedor,id_prod_tipo:id_prod_tipo,cantidad:cantidad,precio_venta:precio_venta,descripcion_producto:descripcion_producto},
                      success: function (data) {
                           console.log('Correctoooo');
                            setTimeout(function(){

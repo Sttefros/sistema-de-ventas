@@ -29,7 +29,7 @@
 					'cantidad' => trim($_POST['cantidad']),
 					'precio_venta' => trim($_POST['precio_venta']),
 					'descripcion_producto' => trim($_POST['descripcion_producto']),
-					'sku' => '1234567890'
+					'sku' => trim($_POST['sku'])
 
 
 
@@ -57,7 +57,7 @@
 					'cantidad' => trim($_POST['cantidad']),
 					'precio_venta' => trim($_POST['precio_venta']),
 					'descripcion_producto' => trim($_POST['descripcion_producto']),
-					'sku' => '1234567890'
+					'sku' => trim($_POST['sku'])
 
 
 
