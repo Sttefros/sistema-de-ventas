@@ -411,6 +411,15 @@ if ($("#valid_prov").valid()) {
               nombre_proveedor: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."}
             }
         });
+  $("#valid_prov").validate({
+            rules: {
+                nombre_proveedor: {required: true, minlength: 4, maxlength: 50}
+
+            },
+            messages: {
+              nombre_proveedor: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."}
+            }
+        });
   $(document).ready(function() {
 
   	var a = $('#table_user').dataTable({
