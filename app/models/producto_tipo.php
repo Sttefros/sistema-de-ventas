@@ -34,9 +34,25 @@
 				return false;
 			}
 		}
-		public function eliminarProductos($id_eliminar){
 
-			$this->db->query("DELETE FROM nombre_prod_tipo WHERE id_prod_tipo = :id_eliminar");
+		public function editarProducto_tipo($datos_agregar){
+
+			$this->db->query("UPDATE producto_tipo SET `nombre_prod_tipo`= :nombre_prod_tipo WHERE id_prod_tipo = :id_prod_tipo");
+
+			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
+			$this->db->bind(':nombre_prod_tipo', $datos_agregar['nombre_prod_tipo'], null);
+
+			
+			if($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		public function eliminarProducto_tipo($id_eliminar){
+
+			$this->db->query("DELETE FROM producto_tipo WHERE id_prod_tipo = :id_eliminar");
 
 			$this->db->bind(':id_eliminar', $id_eliminar, null);
 

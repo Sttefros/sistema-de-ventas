@@ -32,7 +32,7 @@
     </div>
     
 <section class="content">
-<button id="nueva_prov"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span>Nuevo Proveedor</button>
+<button id="nueva_prov"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Proveedor</button>
 	<div class="container-fluid row mb-2">
 		<div class="table table-responsive">
 		<table id="table_user" class="table table-bordered table-striped dt-responsive">
@@ -58,7 +58,7 @@
                   </div>
                       
                         <a onclick="editar(<?php echo $k;?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="Editar"><i class="fa fa-pen"></i></a>
-                        <a onclick="borrar(<?php echo $prov['id_proveedor'];?>, '<?php echo $prov['nombre_proveedor'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar Usuario"><i class="fa fa-trash"></i></a>
+                        <a onclick="borrar(<?php echo $prov['id_proveedor'];?>, '<?php echo $prov['nombre_proveedor'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar proveedor"><i class="fa fa-trash"></i></a>
                     </div>
                   </td>
               </tr>

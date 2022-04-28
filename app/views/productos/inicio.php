@@ -34,9 +34,10 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-<button id="nueva_prod"  data-target="#smallModal" class="btn btn-labeled btn-primary"><span class="btn-label icon fa fa-plus"></span>Nuevo Producto</button>
+
 
 <section class="content">
+<button id="nueva_prod"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Producto</button>
 	<div class="container-fluid row mb-2">
 		<div  class="table">
 		<table  id="table_user" class="table table-bordered table-striped">

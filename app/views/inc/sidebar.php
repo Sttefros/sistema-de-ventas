@@ -21,11 +21,20 @@
                 Proveedores
               </p>
             </a>
-          </li><li class="nav-item">
+          </li>
+          <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/productos/" class="nav-link">
               <i class="fa fa-tag" aria-hidden="true"></i>
               <p>
                 Productos
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo RUTA_URL; ?>/productotipo/" class="nav-link">
+              <i class="fa fa-tag" aria-hidden="true"></i>
+              <p>
+                Tipo de Productos
               </p>
             </a>
           </li>
