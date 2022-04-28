@@ -29,7 +29,7 @@
 <section class="content">
 <button id="nueva_prod_tipo"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Tipo de Producto</button>
 	<div class="container-fluid row mb-2">
-		<div  class="table">
+		<div  class="table table-responsive">
 		<table  id="table_user" class="table table-bordered table-striped">
       		<thead>
               <tr>
@@ -232,43 +232,7 @@ function editar(key) {
                 keyboard: false
             });
   }
-  $("#edit_prod_tipo").click(function () {
-    
-  
-    
-    if ($("#Evalid_prod_tipo").valid()) {
-        $("#loading_modal").modal({
-            
-        });
-        $("#ModalEditar").modal('hide');
-        var id_prod_tipo = $("#Eid_pord_tipo").val();
-        var nombre_prod_tipo = $("#nombre_tipo_prod").val();
-        var url = "<?php echo  RUTA_URL;?>/productotipo/editar";
-         $.ajax({
-             type: "POST",
-             url: url,
-             data: {nombre_prod_tipo: nombre_prod_tipo},
-             success: function (data) {
-                  console.log('Correctoooo');
-                   setTimeout(function(){
-                     $("#loading_modal").modal('hide');
-                  } , 900);  
-                   if (data.status == 1) {
-                     toastr.success(data.mensaje,data.titulo, '4000' );
-
-                   } else {
-                     toastr.error(data.mensaje,data.titulo, '4000' );
-                     console.log(data);
-
-                   }
-
-                    setTimeout(function(){
-                      window.location.href = '<?php echo  RUTA_URL;?>/productotipo/';
-                    }, 2500);               
-             }
-         });
-    }
-  });
+ 
   $("#edit_prod_tipo").click(function () {
     
   
@@ -346,12 +310,23 @@ function editar(key) {
 $("#valid_tipo_prod").validate({
             rules: {
                 nombre_prod_tipo: {required: true, minlength: 4, maxlength: 50}
-
+                
             },
             messages: {
-              nombre_prod_tipo: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."}
+                nombre_prod_tipo: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                
             }
-        });  
+        });
+$("#Evalid_tipo_prod").validate({
+            rules: {
+                Enombre_prod_tipo: {required: true, minlength: 4, maxlength: 50}
+                
+            },
+            messages: {
+                Enombre_prod_tipo: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                
+            }
+        });
   $(document).ready(function() {
   	var a = $('#table_user').dataTable({
             "language": {

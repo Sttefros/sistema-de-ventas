@@ -39,7 +39,7 @@
 <section class="content">
 <button id="nueva_prod"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Producto</button>
 	<div class="container-fluid row mb-2">
-		<div  class="table">
+		<div  class="table table-responsive">
 		<table  id="table_user" class="table table-bordered table-striped">
       		<thead>
               <tr>
@@ -62,7 +62,7 @@
                 <td colspan="1"><?php echo $prod['nombre_producto'];?></td>
                 <td colspan="1"><?php echo $prod['nombre_proveedor'];?></td>
                 <td colspan="1"><?php echo $prod['cantidad'];?></td>
-                <td colspan="1"><?php echo $prod['precio_venta'];?></td>
+                <td colspan="1"><?php echo '$'.$prod['precio_venta'];?></td>
                 <td colspan="1">
                   </div>
                       
@@ -126,14 +126,14 @@
                         <label for="nombre" class="col-sm-3 control-label">Cantidad</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="" >
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Precio Venta</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="precio_venta" name="precio_venta" placeholder="" >
+                            <input type="number" class="form-control" id="precio_venta" name="precio_venta" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
@@ -191,14 +191,14 @@
                         <label for="nombre" class="col-sm-3 control-label">Cantidad</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Ecantidad" name="Ecantidad" placeholder="" >
+                            <input type="number" class="form-control" id="Ecantidad" name="Ecantidad" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Precio Venta</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Eprecio_venta" name="Eprecio_venta" placeholder="" >
+                            <input type="number" class="form-control" id="Eprecio_venta" name="Eprecio_venta" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
@@ -322,7 +322,7 @@ $("#nueva_prod").click(function () {
     
   
     
-            if ($("#valid_prod").valid()) {
+            if ($("#Evalid_prod").valid()) {
                 $("#loading_modal").modal({
                     
                 });
@@ -398,11 +398,37 @@ $("#nueva_prod").click(function () {
 
     $("#valid_prod").validate({
             rules: {
-                nombre_producto: {required: true, minlength: 4, maxlength: 50}
+                nombre_producto: {required: true, minlength: 4, maxlength: 50},
+                id_prod_tipo: {required: true},
+                id_proveedor: {required: true},
+                cantidad: {required: true, min: 1},
+                precio_venta: {required: true, min: 1}
 
             },
             messages: {
-                nombre_producto: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."}
+                nombre_producto: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                id_prod_tipo: {required: "Debe seleccionar un tipo de producto."},
+                id_proveedor: {required: "Debe seleccionar un proveedor."},
+                cantidad: {required: "Debe ingresar al menos 1 producto.", min: "Mínimo 1 producto."},
+                precio_venta: {required: "Debe valer al menos 1 peso.", min: "Mínimo 1 peso."}
+            }
+        });
+
+    $("#Evalid_prod").validate({
+            rules: {
+                Enombre_producto: {required: true, minlength: 4, maxlength: 50},
+                Eid_prod_tipo: {required: true},
+                Eid_proveedor: {required: true},
+                Ecantidad: {required: true, min: 1},
+                Eprecio_venta: {required: true, min: 1}
+
+            },
+            messages: {
+                Enombre_producto: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                Eid_prod_tipo: {required: "Debe seleccionar un tipo de producto."},
+                Eid_proveedor: {required: "Debe seleccionar un proveedor."},
+                Ecantidad: {required: "Debe ingresar al menos 1 producto.", min: "Mínimo 1 producto."},
+                Eprecio_venta: {required: "Debe valer al menos 1 peso.", min: "Mínimo 1 peso."}
             }
         });
 
