@@ -58,6 +58,7 @@
 				return false;
 			}
 		}
+		
 		public function eliminarProveedor($id_eliminar){
 
 			$this->db->query("DELETE FROM proveedor WHERE id_proveedor = :id_eliminar");

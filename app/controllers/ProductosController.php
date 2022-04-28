@@ -36,7 +36,7 @@
 				];
 				$datos_agregar = json_decode(json_encode($datos_agregar), true);
 				if($this->productoModelo->agregarProducto($datos_agregar)){
-					$arr = ['mensaje' => 'Se a ingreresado correctamente', 'titulo' => 'Correcto', 'status' => '1'];
+					$arr = ['mensaje' => 'Se ha ingresado correctamente', 'titulo' => 'Correcto', 'status' => '1'];
 					echo json_encode($arr);
 				} else {
 					$arr = ['mensaje' => 'Error agregando Producto', 'titulo' => 'Error', 'status' => '0'];
@@ -64,7 +64,7 @@
 				];
 				$datos_agregar = json_decode(json_encode($datos_agregar), true);
 				if($this->productoModelo->editarProducto($datos_agregar)){
-					$arr = ['mensaje' => 'Se a modificado correctamente', 'titulo' => 'Correcto', 'status' => '1'];
+					$arr = ['mensaje' => 'Se ha modificado correctamente', 'titulo' => 'Correcto', 'status' => '1'];
 					echo json_encode($arr);
 				} else {
 					$arr = ['mensaje' => 'Error editando Producto', 'titulo' => 'Error', 'status' => '0'];

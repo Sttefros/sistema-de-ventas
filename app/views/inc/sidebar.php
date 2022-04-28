@@ -38,7 +38,14 @@
               </p>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a href="<?php echo RUTA_URL; ?>/clientes/" class="nav-link">
+              <i class="fa fa-tag" aria-hidden="true"></i>
+              <p>
+                Clientes
+              </p>
+            </a>
+          </li>
           
         </ul>
       </nav>
