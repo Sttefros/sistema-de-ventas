@@ -1,0 +1,448 @@
+<?php require RUTA_APP .'/views/inc/header.php';?>
+<?php require RUTA_APP .'/views/inc/topbar.php';?>
+<?php require RUTA_APP .'/views/inc/sidebar.php';?>
+<div class="content-wrapper">
+  <div id="alerta_rellenar"></div>
+<?php  foreach ($datos['lista_cliente'] as $k => $cli){ ?>
+             
+         
+                 <div class="hidden" id="div<?php echo $k; ?>">
+                    <input type="hidden" class="hidden" id="key<?php echo $k;?>" name="key<?php echo $k;?>" value="<?php echo $k;?>" >
+                    <input type="hidden" class="hidden" id="id_cliente<?php echo $k;?>" name="id_cliente<?php echo $k;?>" value="<?php echo $cli['id_cliente'];?>">
+                    <input type="hidden" class="hidden" id="rut_cliente<?php echo $k;?>" name="rut_cliente<?php echo $k;?>" value="<?php echo $cli['rut_cliente'];?>">
+                    <input type="hidden" class="hidden" id="nombre_cliente<?php echo $k;?>" name="nombre_cliente<?php echo $k;?>" value="<?php echo $cli['nombre_cliente'];?>">
+                    <input type="hidden" class="hidden" id="telefono_cliente<?php echo $k;?>" name="telefono_cliente<?php echo $k;?>" value="<?php echo $cli['telefono_cliente'];?>">
+                    <input type="hidden" class="hidden" id="direccion_cliente<?php echo $k;?>" name="direccion_cliente<?php echo $k;?>" value="<?php echo $cli['direccion_cliente'];?>">
+                    <input type="hidden" class="hidden" id="check_fiado<?php echo $k;?>" name="check_fiado<?php echo $k;?>" value="<?php echo $cli['check_fiado'];?>">
+
+                
+                </div>
+                          <?php } ?>
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Clientes</h1>
+          </div><!-- /.col -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+
+<section class="content">
+<button id="nueva_cli"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Cliente</button>
+	<div class="container-fluid row mb-2">
+		<div  class="table">
+		<table  id="table_user" class="table table-bordered table-striped">
+      		<thead>
+              <tr>
+                <th colspan="1">N°</th>
+                <th colspan="1">rut</th>
+                <th colspan="1">Nombre</th>
+                <th colspan="1">Telefono</th>
+                <th colspan="1">Direccion</th>
+                <th colspan="1">check fiado</th>
+                <th colspan="1">opciones</th>
+              </tr>
+          	</thead>
+          	<tbody>
+             <?php  foreach ($datos['lista_cliente'] as $k => $cli){?>
+             
+              <tr>
+                 
+                <td colspan="1"><?php echo $k+1;?></td>
+                <td colspan="1"><?php echo $cli['rut_cliente'];?></td>
+                <td colspan="1"><?php echo $cli['nombre_cliente'];?></td>
+                <td colspan="1"><?php echo $cli['telefono_cliente'];?></td>
+                <td colspan="1"><?php echo $cli['direccion_cliente'];?></td>
+                <td colspan="1"><?php echo $cli['check_fiado'];?></td>
+                <td colspan="1">
+                  </div>
+                      
+                  <a onclick="editar(<?php echo $k;?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="Editar"><i class="fa fa-pen"></i></a>
+                        
+                        
+                    </div>
+                  </td>
+              </tr>
+             
+          <?php } ?>
+          	</tbody>
+              <tfoot>
+              
+              </tr>
+              </tfoot>
+        </table>
+    </div>
+        </div>
+    </section>
+
+          
+</div>
+
+<?php require RUTA_APP .'/views/inc/usersidebar.php';?>
+ 
+<div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Agregar Cliente</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" id="valid_cli">
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Rut</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="rut_cliente" name="rut_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Nombre</label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control select2" id="nombre_cliente" name="nombre_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">telefono</label>
+
+                        <div class="col-sm-9">
+                            <input class="select2" id="telefono_cliente" name="telefono_cliente" placeholder="" >
+                        </div>            
+                    </div>
+
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Direccion</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="direccion_cliente" name="direccion_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Check Fiado</label>
+
+                        <div class="col-sm-9">
+                            <input type="checkbox" class="form-control" id="check_fiado" name="check_fiado" placeholder="" >
+                        </div>            
+                    </div>
+                  
+            <div class="modal-footer justify-content-between">
+              <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" id="add_cli"  class="btn btn-primary">Guardar</button> 
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="ModalEditar">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Editar Cliente</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" id="Evalid_cli">
+                <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Rut</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Erut_cliente" name="Erut_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Nombre</label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control select2" id="Enombre_cliente" name="Enombre_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">telefono</label>
+
+                        <div class="col-sm-9">
+                            <input class="select2" id="Etelefono_cliente" name="Etelefono_cliente" placeholder="" >
+                        </div>            
+                    </div>
+
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Direccion</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Edireccion_cliente" name="Edireccion_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Habilitado para fiar</label>
+
+                        <div class="col-sm-9">
+                            <input type="checkbox" class="form-control" id="Echeck_fiado" name="Echeck_fiado" placeholder="" >
+                        </div>            
+                    </div>
+                    <input type="hidden" class="form-control" id="Eid_cliente" name="Eid_cliente" placeholder="" >
+
+            <div class="modal-footer justify-content-between">
+              <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" id="edit_cli"  class="btn btn-primary">Guardar</button> 
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+<div id="ModalEliminar" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+<i class="fa fa-exclamation-circle fa-6" aria-hidden="true"></i>
+        </div>            
+        <h4 class="modal-title w-100">Estas Seguro?</h4>  
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="rellenar"></p>
+            <input type="hidden" class="form-control" id="id_eliminar" name="id_eliminar" placeholder="" >
+
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmar_eliminar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>  
+<div id="loading_modal" class="modal fade">
+    <div id="load" class="modal-dialog">
+        <div class="panel-body">
+            <label class="text-primary">Cargando. Por favor espere unos segundos...</label>
+            <div class="progress progress-striped active progress-lg" style="height:25px"><div class="progress-bar progress-bar-warning" style="width: 69%;"></div></div>
+        </div>
+    </div>
+</div>
+<?php require RUTA_APP .'/views/inc/footer.php';?>
+<script>
+   function limpiarForm(idForm) {
+        var vali = $("#" + idForm).validate();
+        vali.resetForm();
+        vali.reset();
+        $("#" + idForm).trigger('reset');
+        $("#" + idForm + " .form-group").removeClass('has-error');
+    }
+    $("#nueva_cli").click(function () {
+
+      limpiarForm('valid_cli');
+
+
+      $("#myModal").modal({
+          keyboard: false
+      });
+      setTimeout(function () {
+
+          $('#nombre_producto').focus();
+
+      }, 500); });
+
+      $("#add_cli").click(function () {
+    
+  
+    
+    if ($("#valid_cli").valid()) {
+        $("#loading_modal").modal({
+            
+        });
+        $("#myModal").modal('hide');
+        var rut_cliente = $("#rut_cliente").val();
+        var nombre_cliente = $("#nombre_cliente").val();
+        var telefono_cliente = $("#telefono_cliente").val();
+        var direccion_cliente = $("#direccion_cliente").val();
+        if ($("input#check_fiado").is(':checked')) {
+          var check_fiado = 1;
+        }else{
+          var check_fiado = 0;
+        }
+        var url = "<?php echo  RUTA_URL;?>/clientes/agregar";
+         $.ajax({
+             type: "POST",
+             url: url,
+             data: {rut_cliente: rut_cliente, nombre_cliente:nombre_cliente,telefono_cliente:telefono_cliente,direccion_cliente:direccion_cliente,check_fiado:check_fiado},
+             success: function (data) {
+                  console.log('Correctoooo');
+                   setTimeout(function(){
+                     $("#loading_modal").modal('hide');
+                  } , 900);  
+                   if (data.status == 1) {
+                     toastr.success(data.mensaje,data.titulo, '4000' );
+
+                   } else {
+                     toastr.error(data.mensaje,data.titulo, '4000' );
+                     console.log(data);
+
+                   }
+
+                    setTimeout(function(){
+                      window.location.href = '<?php echo  RUTA_URL;?>/clientes/';
+                    }, 2500);               
+             }
+         });
+    }
+});
+
+function editar(key) {
+        console.log(key);
+        $("#Eid_cliente").val($("#id_cliente"+key).val());
+        console.log($("#Eid_cliente"+key).val());
+        $("#Erut_cliente").val($("#rut_cliente"+key).val());
+        $("#Enombre_cliente").val($("#nombre_cliente"+key).val());
+        $("#Etelefono_cliente").val($("#telefono_cliente"+key).val());
+        $("#Edireccion_cliente").val($("#direccion_cliente"+key).val());
+        $("#Echeck_fiado").val($("#check_fiado"+key).val());
+        console.log($("#check_fiado"+key).val());
+        if(($("#check_fiado"+key).val()) == 1){
+          $('#Echeck_fiado').attr('checked', true);
+        }else{
+          $('#Echeck_fiado').attr('checked', false);
+        }
+        $("#ModalEditar").modal({
+                keyboard: false
+            });
+  }
+  $("#edit_cli").click(function () {
+    
+  
+    
+    if ($("#Evalid_cli").valid()) {
+        $("#loading_modal").modal({
+            
+        });
+        $("#ModalEditar").modal('hide');
+        var id_cliente = $("#Eid_cliente").val();
+        var rut_cliente = $("#Erut_cliente").val();
+        var nombre_cliente = $("#Enombre_cliente").val();
+        var telefono_cliente = $("#Etelefono_cliente").val();
+        var direccion_cliente = $("#Edireccion_cliente").val();
+        // var check_fiado = $("#Echeck_fiado").val();
+        if ($("input#Echeck_fiado").is(':checked')) {
+          var check_fiado = 1;
+        }else{
+          var check_fiado = 0;
+        }
+        var url = "<?php echo  RUTA_URL;?>/clientes/editar";
+         $.ajax({
+             type: "POST",
+             url: url,
+             data: {id_cliente: id_cliente,rut_cliente: rut_cliente, nombre_cliente:nombre_cliente,telefono_cliente:telefono_cliente,direccion_cliente:direccion_cliente,check_fiado:check_fiado},
+             success: function (data) {
+                  console.log('Correctoooo');
+                   setTimeout(function(){
+                     $("#loading_modal").modal('hide');
+                  } , 900);  
+                   if (data.status == 1) {
+                     toastr.success(data.mensaje,data.titulo, '4000' );
+
+                   } else {
+                     toastr.error(data.mensaje,data.titulo, '4000' );
+                     console.log(data);
+
+                   }
+
+                    setTimeout(function(){
+                      window.location.href = '<?php echo  RUTA_URL;?>/clientes/';
+                    }, 2500);               
+             }
+         });
+    }
+  });
+
+  function borrar(id_cli, nombre) {
+        $('#rellenar').html('seguro quieres eliminar el proveedor: <b>'+ nombre +'</b>?');
+        $('#id_eliminar').val(id_prov);
+        $('#ModalEliminar').modal();
+    }
+    $("#confirmar_eliminar").click(function () {
+    
+    $("#loading_modal").modal({
+        
+    });
+    $("#ModalEliminar").modal('hide');
+    var id_eliminar = $("#id_eliminar").val();
+
+    var url = "<?php echo  RUTA_URL;?>/proveedores/eliminar";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {id: id_eliminar},
+        success: function (data) {
+              
+              setTimeout(function(){
+                $("#loading_modal").modal('hide');
+              }, 900);  
+              if (data.status == 1) {
+                toastr.success(data.mensaje,data.titulo, '4000' );
+
+              } else {
+                toastr.error(data.mensaje,data.titulo, '4000' );
+              }
+
+              setTimeout(function(){
+                window.location.href = '<?php echo  RUTA_URL;?>/proveedores/';
+              }, 2500);               
+        }
+    });
+
+});
+
+  $(document).ready(function() {
+  	var a = $('#table_user').dataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ ",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                responsive: true,
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+        $('#table_user_wrapper .table-caption').text('Usuarios');
+        $('#table_user_wrapper .dataTables_filter input').attr('placeholder', 'Buscar...');
+
+    
+ 
+    new $.fn.dataTable.FixedHeader( '#table_user' );
+} );
+</script>
+
+
+</body>
+</html>
