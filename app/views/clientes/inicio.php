@@ -63,7 +63,7 @@
                   </div>
                       
                   <a onclick="editar(<?php echo $k;?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="Editar"><i class="fa fa-pen"></i></a>
-                        
+                  <a onclick="borrar(<?php echo $cli['id_cliente'];?>, '<?php echo $cli['nombre_cliente'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar cliente"><i class="fa fa-trash"></i></a>
                         
                     </div>
                   </td>
@@ -369,8 +369,8 @@ function editar(key) {
   });
 
   function borrar(id_cli, nombre) {
-        $('#rellenar').html('seguro quieres eliminar el proveedor: <b>'+ nombre +'</b>?');
-        $('#id_eliminar').val(id_prov);
+        $('#rellenar').html('seguro quieres eliminar el cliente: <b>'+ nombre +'</b>?');
+        $('#id_eliminar').val(id_cli);
         $('#ModalEliminar').modal();
     }
     $("#confirmar_eliminar").click(function () {
@@ -381,7 +381,7 @@ function editar(key) {
     $("#ModalEliminar").modal('hide');
     var id_eliminar = $("#id_eliminar").val();
 
-    var url = "<?php echo  RUTA_URL;?>/proveedores/eliminar";
+    var url = "<?php echo  RUTA_URL;?>/clientes/eliminar";
     $.ajax({
         type: "POST",
         url: url,
@@ -399,7 +399,7 @@ function editar(key) {
               }
 
               setTimeout(function(){
-                window.location.href = '<?php echo  RUTA_URL;?>/proveedores/';
+                window.location.href = '<?php echo  RUTA_URL;?>/clientes/';
               }, 2500);               
         }
     });
