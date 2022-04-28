@@ -137,7 +137,7 @@
                         </div>            
                     </div>
                     <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label>
+                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label><sup>Opcional</sup>
 
                         <div class="col-sm-9">
                             <textarea type="text" class="form-control" id="descripcion_producto" name="descripcion_producto" placeholder="" ></textarea>
@@ -202,7 +202,7 @@
                         </div>            
                     </div>
                     <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label>
+                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label><sup>Opcional</sup>
 
                         <div class="col-sm-9">
                             <textarea type="text" class="form-control" id="Edescripcion_producto" name="Edescripcion_producto" placeholder="" ></textarea>
