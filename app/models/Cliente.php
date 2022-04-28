@@ -50,4 +50,18 @@
 				return false;
 			}
 		}
+
+		public function eliminarCliente($id_eliminar){
+
+			$this->db->query("DELETE FROM cliente WHERE id_cliente = :id_eliminar");
+
+			$this->db->bind(':id_eliminar', $id_eliminar, null);
+
+			
+			if($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}

@@ -65,4 +65,19 @@
 			} 
 		}
 		
+		public function eliminar(){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				
+				$id_cli = trim($_POST['id']);
+
+				if($this->clienteModelo->eliminarCliente($id_cli)){
+					$arr = ['mensaje' => 'Eliminado correctamente', 'titulo' => 'Correcto', 'status' => '1'];
+					 echo json_encode($arr);
+				} else {
+					$arr = ['mensaje' => 'Error', 'titulo' => 'Error', 'status' => '0'];
+					 echo json_encode($arr);
+				}
+			  $this->vista('clientes/eliminar', $arr);
+			}
+		}
 	}
