@@ -1,3 +1,18 @@
+<?php if(!isset($_SESSION)){
+  
+session_start();
+
+}
+
+
+if(!isset($_SESSION["administrador"] ) && !isset($_SESSION["vendedor"] ) ){
+  header('Location: '.RUTA_URL."/usuarios/login");
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 
 <html lang="es">
