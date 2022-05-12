@@ -16,7 +16,7 @@
           
                <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/proveedores/" class="nav-link">
-              <i class="fa fa-users" aria-hidden="true"></i>
+            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
               <p>
                 Proveedores
               </p>
@@ -24,7 +24,7 @@
           </li>
           <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/productos/" class="nav-link">
-              <i class="fa fa-tag" aria-hidden="true"></i>
+            <i class="fa fa-cube" aria-hidden="true"></i>&nbsp;
               <p>
                 Productos
               </p>
@@ -32,7 +32,7 @@
           </li>
           <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/productotipo/" class="nav-link">
-              <i class="fa fa-tag" aria-hidden="true"></i>
+            <i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;
               <p>
                 Tipo de Productos
               </p>
@@ -40,13 +40,20 @@
           </li>
           <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/clientes/" class="nav-link">
-              <i class="fa fa-tag" aria-hidden="true"></i>
+            <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
               <p>
                 Clientes
               </p>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a href="<?php echo RUTA_URL; ?>/usuarios/" class="nav-link">
+            <i class="fa fa-id-card" aria-hidden="true"></i>&nbsp;
+              <p>
+                Usuarios
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

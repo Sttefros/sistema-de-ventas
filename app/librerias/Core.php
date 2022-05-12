@@ -15,6 +15,7 @@
 		protected $parametros = [];
 
 		public function __construct(){
+			
 			$url = $this->getUrl();
 			//buscar controlador existente
 
