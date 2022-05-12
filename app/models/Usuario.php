@@ -93,12 +93,20 @@
 						}             
 					}else{
 						//si algo falla enviar sesion con el fallo de verificacion de contraseña
-						$_SESSION['error_login'] = "dato incorrecto";
+						$_SESSION['error_login'] = '<div class="alert alert-danger alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+						Correo o contraseña incorrecta
+						</div>';
 						return $_SESSION['error_login'];
 					}
 				}else{
 					//si algo falla enviar sesion con el fallo de verificacion de correo
-					$_SESSION['error_login'] = "datos incorrecto";
+					$_SESSION['error_login'] = '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+					Correo o contraseña incorrecta
+					</div>';
 					return $_SESSION['error_login'];
 				}
                 

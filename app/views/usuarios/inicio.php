@@ -44,7 +44,6 @@
                 <th colspan="1">Apellido</th>
                 <th colspan="1">Correo</th>
                 <th colspan="1">Rol</th>
-                <th colspan="1">Contraseña</th>
                 <th colspan="1">opciones</th>
               </tr>
           	</thead>
@@ -58,7 +57,6 @@
                 <td colspan="1"><?php echo $usr['apellido_usuario'];?></td>
                 <td colspan="1"><?php echo $usr['correo_usuario'];?></td>
                 <td colspan="1"><?php echo $usr['rol_usuario'];?></td>
-                <td colspan="1"><?php echo $usr['contrasena_usuario'];?></td>
                 <td colspan="1">
                   </div>
                       
