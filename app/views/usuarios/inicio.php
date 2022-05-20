@@ -36,7 +36,7 @@
 <button id="nueva_user"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Usuario</button>
 	<div class="container-fluid row mb-2">
 		<div  class="table">
-		<table  id="table_user" class="table table-bordered table-striped">
+		<table  id="table_user" class="table table-bordered table-striped dt-responsive">
       		<thead>
               <tr>
                 <th colspan="1">N°</th>
@@ -190,7 +190,7 @@
         
          $.ajax({
              type: "POST",
-             url: url,
+             url: "<?php echo  RUTA_URL;?>/usuarios/agregar",
              data: {nombre_usuario: nombre_usuario, apellido_usuario:apellido_usuario,correo_usuario:correo_usuario,rol_usuario:rol_usuario,contrasena_usuario:contrasena_usuario},
              success: function (data) {
                   console.log('Correctoooo');

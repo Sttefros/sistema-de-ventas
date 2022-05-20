@@ -13,6 +13,13 @@
 			return json_decode(json_encode($this->db->registros()), true);
 		}
 
+		public function listaSelectCliente(){
+			$this->db->query("SELECT id_cliente as id, concat_ws(' - ', nombre_cliente, rut_cliente) as text FROM cliente");
+
+			return json_decode(json_encode($this->db->registros()), true);
+			
+		}
+
         public function agregarCliente($datos_agregar){
 
 			$this->db->query("INSERT INTO cliente (`rut_cliente`, `nombre_cliente`, `telefono_cliente`, `direccion_cliente`, `check_fiado`) VALUES (:rut_cliente,:nombre_cliente,:telefono_cliente,:direccion_cliente,:check_fiado)");

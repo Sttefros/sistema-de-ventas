@@ -21,6 +21,19 @@
 
 		public function agregar(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				if(empty(trim($_POST['sku']))){
+					if(strlen(trim($_POST['id_proveedor'])) == 1){
+						$sku = '00'.trim($_POST['id_proveedor']);
+					} else if(strlen(trim($_POST['id_proveedor']) == 2)){
+						$sku = '0'.trim($_POST['id_proveedor']);
+					} else {
+						$sku = trim($_POST['id_proveedor']);
+					}
+				} else{
+					$sku = trim($_POST['sku']);
+					
+
+				}
 				$datos_agregar = [
 
 					'nombre_producto' => trim($_POST['nombre_producto']),
@@ -29,7 +42,7 @@
 					'cantidad' => trim($_POST['cantidad']),
 					'precio_venta' => trim($_POST['precio_venta']),
 					'descripcion_producto' => trim($_POST['descripcion_producto']),
-					'sku' => trim($_POST['sku'])
+					'sku' => $sku
 
 
 
@@ -48,6 +61,12 @@
 		}
 		public function editar(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				if(empty(trim($_POST['sku']))){
+					$sku = '123123123';
+				} else{
+					$sku = trim($_POST['sku']);
+
+				}
 				$datos_agregar = [
 
 					'id_producto' => trim($_POST['id_producto']),
@@ -57,7 +76,7 @@
 					'cantidad' => trim($_POST['cantidad']),
 					'precio_venta' => trim($_POST['precio_venta']),
 					'descripcion_producto' => trim($_POST['descripcion_producto']),
-					'sku' => trim($_POST['sku'])
+					'sku' => $sku
 
 
 

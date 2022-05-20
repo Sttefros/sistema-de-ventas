@@ -30,7 +30,7 @@
 <button id="nueva_prod_tipo"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Tipo de Producto</button>
 	<div class="container-fluid row mb-2">
 		<div  class="table table-responsive">
-		<table  id="table_user" class="table table-bordered table-striped">
+		<table  id="table_user" class="table table-bordered table-striped dt-responsive">
       		<thead>
               <tr>
                 <th colspan="1">N°</th>
@@ -110,12 +110,12 @@
               </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal form-bordered" id="Evalid_prod_tipo">
+                <form class="form-horizontal form-bordered" id="Evalid_tipo_prod">
                     <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Nombre Tipo de Producto</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Enombre_prod_tipo" name="Enombre_prod_tipo" placeholder="" >
+                            <input type="text" class="form-control" id="Enombre_tipo_prod" name="Enombre_tipo_prod" placeholder="" >
                         </div>            
                     </div>
                     
@@ -227,7 +227,7 @@ function editar(key) {
         console.log(key);
         $("#Eid_prod_tipo").val($("#id_prod_tipo"+key).val());
         console.log($("#Eid_prod_tipo"+key).val());
-        $("#Enombre_prod_tipo").val($("#nombre_prod_tipo"+key).val());
+        $("#Enombre_tipo_prod").val($("#nombre_prod_tipo"+key).val());
         $("#ModalEditar").modal({
                 keyboard: false
             });
@@ -237,13 +237,13 @@ function editar(key) {
     
   
     
-    if ($("#Evalid_prod_tipo").valid()) {
+    if ($("#Evalid_tipo_prod").valid()) {
         $("#loading_modal").modal({
             
         });
         $("#ModalEditar").modal('hide');
         var id_prod_tipo = $("#Eid_prod_tipo").val();
-        var nombre_prod_tipo = $("#Enombre_prod_tipo").val();
+        var nombre_prod_tipo = $("#Enombre_tipo_prod").val();
         var url = "<?php echo  RUTA_URL;?>/productotipo/editar";
          $.ajax({
              type: "POST",
@@ -309,21 +309,21 @@ function editar(key) {
 });
 $("#valid_tipo_prod").validate({
             rules: {
-                nombre_prod_tipo: {required: true, minlength: 4, maxlength: 50}
+                nombre_tipo_prod: {required: true, minlength: 4, maxlength: 50}
                 
             },
             messages: {
-                nombre_prod_tipo: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                nombre_tipo_prod: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."}
                 
             }
         });
 $("#Evalid_tipo_prod").validate({
             rules: {
-                Enombre_prod_tipo: {required: true, minlength: 4, maxlength: 50}
+                Enombre_tipo_prod: {required: true, minlength: 4, maxlength: 50}
                 
             },
             messages: {
-                Enombre_prod_tipo: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."},
+                Enombre_tipo_prod: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres.", maxlength: " Máximo 50 caracteres."}
                 
             }
         });

@@ -15,6 +15,14 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
                <li class="nav-item">
+            <a href="<?php echo RUTA_URL; ?>/ventas/" class="nav-link">
+            <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+              <p>
+                Ventas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo RUTA_URL; ?>/proveedores/" class="nav-link">
             <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
               <p>

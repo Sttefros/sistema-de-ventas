@@ -2,25 +2,26 @@
 <?php require RUTA_APP .'/views/inc/topbar.php';?>
 <?php require RUTA_APP .'/views/inc/sidebar.php';?>
 <div class="content-wrapper">
-<?php  foreach ($datos['lista_producto'] as $k => $prod){ ?>
+  <div id="alerta_rellenar"></div>
+ <?php  foreach ($datos['lista_venta'] as $k => $vent){ ?>
              
          
                  <div class="hidden" id="div<?php echo $k; ?>">
                     <input type="hidden" class="hidden" id="key<?php echo $k;?>" name="key<?php echo $k;?>" value="<?php echo $k;?>" >
-                    <input type="hidden" class="hidden" id="id_producto<?php echo $k;?>" name="id_producto<?php echo $k;?>" value="<?php echo $prod['id_producto'];?>">
-                    <input type="hidden" class="hidden" id="id_prod_tipo<?php echo $k;?>" name="id_prod_tipo<?php echo $k;?>" value="<?php echo $prod['id_prod_tipo'];?>">
-                    <input type="hidden" class="hidden" id="id_proveedor<?php echo $k;?>" name="id_proveedor<?php echo $k;?>" value="<?php echo $prod['id_proveedor'];?>">
-                    <input type="hidden" class="hidden" id="sku<?php echo $k;?>" name="sku<?php echo $k;?>" value="<?php echo $prod['sku'];?>">
-                    <input type="hidden" class="hidden" id="nombre_producto<?php echo $k;?>" name="nombre_producto<?php echo $k;?>" value="<?php echo $prod['nombre_producto'];?>">
-                    <input type="hidden" class="hidden" id="precio_venta<?php echo $k;?>" name="precio_venta<?php echo $k;?>" value="<?php echo $prod['precio_venta'];?>">
-                    <input type="hidden" class="hidden" id="descripcion_producto<?php echo $k;?>" name="descripcion_producto<?php echo $k;?>" value="<?php echo $prod['descripcion_producto'];?>">
-                    <input type="hidden" class="hidden" id="cantidad<?php echo $k;?>" name="cantidad<?php echo $k;?>" value="<?php echo $prod['cantidad'];?>">
-                    <input type="hidden" class="hidden" id="nombre_proveedor<?php echo $k;?>" name="nombre_proveedor<?php echo $k;?>" value="<?php echo $prod['nombre_proveedor'];?>">
-                    <input type="hidden" class="hidden" id="nombre_prod_tipo<?php echo $k;?>" name="nombre_prod_tipo<?php echo $k;?>" value="<?php echo $prod['nombre_prod_tipo'];?>">
+                    <input type="hidden" class="hidden" id="id_venta<?php echo $k;?>" name="id_venta<?php echo $k;?>" value="<?php echo $vent['id_venta'];?>">
+                    <input type="hidden" class="hidden" id="tipo_pago<?php echo $k;?>" name="tipo_pago<?php echo $k;?>" value="<?php echo $vent['tipo_pago'];?>">
+                    <input type="hidden" class="hidden" id="fecha<?php echo $k;?>" name="fecha<?php echo $k;?>" value="<?php echo $vent['fecha'];?>">
+                    <input type="hidden" class="hidden" id="id_usuario<?php echo $k;?>" name="id_usuario<?php echo $k;?>" value="<?php echo $vent['id_usuario'];?>">
+                    <input type="hidden" class="hidden" id="id_cliente<?php echo $k;?>" name="id_cliente<?php echo $k;?>" value="<?php echo $vent['id_cliente'];?>">
+                    <input type="hidden" class="hidden" id="check_fiado<?php echo $k;?>" name="check_fiado<?php echo $k;?>" value="<?php echo $vent['check_fiado'];?>">
+                    <input type="hidden" class="hidden" id="fecha_convenio<?php echo $k;?>" name="fecha_convenio<?php echo $k;?>" value="<?php echo $vent['fecha_convenio'];?>">
+                    <input type="hidden" class="hidden" id="total_venta<?php echo $k;?>" name="total_venta<?php echo $k;?>" value="<?php echo $vent['total_venta'];?>">
+                    <input type="hidden" class="hidden" id="total_iva<?php echo $k;?>" name="total_iva<?php echo $k;?>" value="<?php echo $vent['total_iva'];?>">
+                    <input type="hidden" class="hidden" id="total_venta_iva<?php echo $k;?>" name="total_venta_iva<?php echo $k;?>" value="<?php echo $vent['total_venta_iva'];?>">
 
                 
                 </div>
-                          <?php } ?>
+                           <?php } ?>
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -36,44 +37,50 @@
 
 
 <section class="content">
-<button id="nueva_prod"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nuevo Producto</button>
-	<div class="container-fluid row mb-2">
-		<div  class="table table-responsive">
-		<table  id="table_user" class="table table-bordered table-striped dt-responsive">
-      		<thead>
+<button id="nueva_venta"  data-target="#smallModal" class="btn btn-labeled btn-success"><span class="btn-label icon fa fa-plus"></span> Nueva Venta</button>
+    <div class="container-fluid row mb-2">
+        <div  class="table table-responsive">
+        <table  id="table_user" class="table table-bordered table-striped dt-responsive">
+            <thead>
               <tr>
                 <th colspan="1">N°</th>
-                <th colspan="1">Tipo</th>
-                <th colspan="1">nombre</th>
-                <th colspan="1">Proveedor</th>
-                <th colspan="1">Cantidad</th>
-                <th colspan="1">Precio Venta</th>
+                <th colspan="1">Fecha</th>
+                <th colspan="1">Tipo Pago</th>
+                <th colspan="1">Vendedor</th>
+                <th colspan="1">Cliente</th>
+                <th colspan="1">Fiado</th>
+                <th colspan="1">Total Venta</th>
+                <th colspan="1">opciones</th>
+                <th colspan="1">opciones</th>
                 <th colspan="1">opciones</th>
               </tr>
-          	</thead>
-          	<tbody>
-             <?php  foreach ($datos['lista_producto'] as $k => $prod){?>
+            </thead>
+            <tbody>
+             <?php  foreach ($datos['lista_venta'] as $k => $vent){?>
              
               <tr>
                  
                 <td colspan="1"><?php echo $k+1;?></td>
-                <td colspan="1"><?php echo $prod['nombre_prod_tipo'];?></td>
-                <td colspan="1"><?php echo $prod['nombre_producto'];?></td>
-                <td colspan="1"><?php echo $prod['nombre_proveedor'];?></td>
-                <td colspan="1"><?php echo $prod['cantidad'];?></td>
-                <td colspan="1"><?php echo '$'.$prod['precio_venta'];?></td>
+                <td colspan="1"><?php echo date("d-m-Y H:i", strtotime($vent['fecha']));?></td>
+                <td colspan="1"><?php echo $vent['tipo_pago'];?></td>
+                <td colspan="1"><?php echo $vent['id_usuario'];?></td>
+                <td colspan="1"><?php echo $vent['id_cliente'];?></td>
+                <td colspan="1"><?php echo $vent['check_fiado'];?></td>
+                <td colspan="1"><?php echo '$'.$vent['total_venta_iva'];?></td>
+                <td colspan="1"><?php echo '$'.$vent['check_fiado'];?></td>
+                <td colspan="1"><?php echo '$'.$vent['check_fiado'];?></td>
                 <td colspan="1">
                   </div>
                       
                         <a onclick="editar(<?php echo $k;?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="Editar"><i class="fa fa-pen"></i></a>
                         
-                        <a onclick="borrar(<?php echo $prod['id_producto'];?>, '<?php echo $prod['nombre_producto'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar Usuario"><i class="fa fa-trash"></i></a>
+                        <a onclick="borrar(<?php echo $vent['id_producto'];?>, '<?php echo $vent['nombre_producto'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar Usuario"><i class="fa fa-trash"></i></a>
                     </div>
                   </td>
               </tr>
              
           <?php } ?>
-          	</tbody>
+            </tbody>
               <tfoot>
               
               </tr>
@@ -279,19 +286,12 @@
         $("#" + idForm + " .form-group").removeClass('has-error');
     }
 
-$("#nueva_prod").click(function () {
-
-            limpiarForm('valid_prod');
-            
-            
-            $("#myModal").modal({
-                keyboard: false
-            });
-            setTimeout(function () {
-
-                $('#nombre_producto').focus();
-
-            }, 500); });
+$("#nueva_venta").click(function () {
+    <?php if(isset($_SESSION['carrito'])) { $_SESSION['carrito'] = []; }?>
+window.location.href = " <?php echo  RUTA_URL;?>/ventas/generar_venta";
+   
+          
+          });
 
   $("#add_prod").click(function () {
     
@@ -473,28 +473,13 @@ $("#nueva_prod").click(function () {
             });
     }
         
-    var lista_prov = <?php echo json_encode($datos['lista_proveedor']) ; ?>;
-    $("#id_proveedor").select2({
-    data: lista_prov,width: 'resolve'
-
-    })
-    $("#Eid_proveedor").select2({
-    data: lista_prov,width: 'resolve'
-
-    });
-    var lista_prod_tipo = <?php echo json_encode($datos['lista_prod_tipo']) ; ?>;
-    $("#id_prod_tipo").select2({
-    data: lista_prod_tipo,width: 'resolve'
-    });
-    $("#Eid_prod_tipo").select2({
-    data: lista_prod_tipo,width: 'resolve'
-    });
+   
   $(document).ready(function() {
 
 
 
 
-  	var a = $('#table_user').dataTable({
+    var a = $('#table_user').dataTable({
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ ",

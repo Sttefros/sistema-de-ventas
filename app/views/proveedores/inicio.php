@@ -107,7 +107,7 @@
                         <label for="nombre" class="col-sm-3 control-label">telefono</label>
 
                         <div class="col-sm-9">
-                            <input  type="text" class="form-control" id="telefono" name="telefono" placeholder="" >
+                            <input  type="number" class="form-control" id="telefono" name="telefono" onkeydown="javascript: return event.keyCode == 69 ? false : true" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                         </div>            
                     </div>
 
@@ -115,7 +115,7 @@
                         <label for="nombre" class="col-sm-3 control-label">correo</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="correo" name="correo" placeholder="" >
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
@@ -125,13 +125,13 @@
                             <input type="text" class="form-control" id="nombre_contacto" name="nombre_contacto" placeholder="" >
                         </div>            
                     </div>
-                    <div class="form-group dark">
+                    <!-- <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Rol Proveedor</label>
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="rol_proveedor" name="rol_proveedor" placeholder="" >
                         </div>            
-                    </div>
+                    </div> -->
             <div class="modal-footer justify-content-between">
               <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
               <button type="button" id="add_prov"  class="btn btn-primary">Guardar</button> 
@@ -172,7 +172,7 @@
                         <label for="nombre" class="col-sm-3 control-label">Telefono</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Etelefono" name="Etelefono" placeholder="" >
+                            <input type="number" class="form-control" id="Etelefono" name="Etelefono" onkeydown="javascript: return event.keyCode == 69 ? false : true" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                         </div>            
                     </div>
 
@@ -190,13 +190,13 @@
                             <input type="text" class="form-control" id="Enombre_contacto" name="Enombre_contacto" placeholder="" >
                         </div>            
                     </div>
-                    <div class="form-group dark">
+                    <!-- <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Tipo del proveedor</label>
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="Erol_proveedor" name="Erol_proveedor" placeholder="" >
                         </div>            
-                    </div>
+                    </div> -->
                     <input type="hidden" class="form-control" id="Eid_proveedor" name="Eid_proveedor" placeholder="" >
 
             <div class="modal-footer justify-content-between">
@@ -502,12 +502,11 @@ if ($("#valid_prov").valid()) {
     var telefono = $("#telefono").val();
     var correo = $("#correo").val();
     var nombre_contacto = $("#nombre_contacto").val();
-    var rol_proveedor = $("#rol_proveedor").val();
     var url = "<?php echo  RUTA_URL;?>/proveedores/agregar";
      $.ajax({
          type: "POST",
          url: url,
-         data: {nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto,rol_proveedor:rol_proveedor},
+         data: {nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto},
          success: function (data) {
               console.log('Correctoooo');
                setTimeout(function(){
@@ -539,7 +538,6 @@ if ($("#valid_prov").valid()) {
         $("#Etelefono").val($("#telefono"+key).val());
         $("#Ecorreo").val($("#correo"+key).val());
         $("#Enombre_contacto").val($("#nombre_contacto"+key).val());
-        $("#Erol_proveedor").val($("#rol_proveedor"+key).val());
         $("#ModalEditar").modal({
                 keyboard: false
             });
@@ -559,12 +557,11 @@ if ($("#valid_prov").valid()) {
         var telefono = $("#Etelefono").val();
         var correo = $("#Ecorreo").val();
         var nombre_contacto = $("#Enombre_contacto").val();
-        var rol_proveedor = $("#Erol_proveedor").val();
         var url = "<?php echo  RUTA_URL;?>/proveedores/editar";
          $.ajax({
              type: "POST",
              url: url,
-             data: {id_proveedor: id_proveedor,nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto,rol_proveedor:rol_proveedor},
+             data: {id_proveedor: id_proveedor,nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto},
              success: function (data) {
                   console.log('Correctoooo');
                    setTimeout(function(){
@@ -636,11 +633,9 @@ if ($("#valid_prov").valid()) {
             rules: {
                 nombre_proveedor: {required: true, minlength: 4, maxlength: 50},
                 rut: {required: true, rut: true, maxlength: 12},
-                telefono: {required: true, minlength: 4, maxlength: 9},
+                telefono: {required: true, minlength: 9, maxlength: 9},
                 correo: {email: true, required: true, minlength: 4, maxlength: 30},
-                nombre_proveedor: {required: true, minlength: 4, maxlength: 50},
-                nombre_contacto: {required: true, minlength: 4, maxlength: 50},
-                rol_proveedor: {required: true, minlength: 4, maxlength: 50}
+                nombre_contacto: {required: true, minlength: 4, maxlength: 50}
                     
 
 
@@ -648,21 +643,31 @@ if ($("#valid_prov").valid()) {
             messages: {
                 nombre_proveedor: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."},
                 rut: {required: 'Debe ingresar un RUT', rut: 'Este rut no es valido.', maxlength: " Máximo 12 digitos."},
-                telefono: {required: 'Debe ingresar un telefono', rut: 'Este rut no es valido.', maxlength: " Máximo 9 digitos."},
-                correo: {required: 'Debe ingresar un correo', rut: 'Este rut no es valido.', maxlength: " Máximo 30 digitos."},
-                nombre_proveedor: {required: 'Debe ingresar un nombre', rut: 'Este rut no es valido.', maxlength: " Máximo 50 digitos."},
-                nombre_contacto: {required: 'Debe ingresar un nombre', rut: 'Este rut no es valido.', maxlength: " Máximo 50 digitos."},
-                rol_proveedor: {required: 'Debe ingresar un rol', rut: 'Este rut no es valido.', maxlength: " Máximo 50 digitos."}
+                telefono: {required: 'Debe ingresar un telefono',  maxlength: " Máximo 9 digitos.",  minlength: " Minimo 9 digitos."},
+                correo: {required: 'Debe ingresar un correo', email: 'Debe ingresar un correo valido', maxlength: " Máximo 30 digitos."},
+                nombre_contacto: {required: 'Debe ingresar un nombre', minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 digitos."}
 
             }
         });
-  $("#valid_prov").validate({
+  $("#Evalid_prov").validate({
             rules: {
-                nombre_proveedor: {required: true, minlength: 4, maxlength: 50}
+                Enombre_proveedor: {required: true, minlength: 4, maxlength: 50},
+                Erut: {required: true, rut: true, maxlength: 12},
+                Etelefono: {required: true, minlength: 4, maxlength: 9},
+                Ecorreo: {email: true, required: true, minlength: 4, maxlength: 30},
+                Enombre_proveedor: {required: true, minlength: 4, maxlength: 50},
+                Enombre_contacto: {required: true, minlength: 4, maxlength: 50},
+                    
+
 
             },
             messages: {
-              nombre_proveedor: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."}
+                Enombre_proveedor: {required: "Debe ingresar un nombre.", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."},
+                Erut: {required: 'Debe ingresar un RUT', rut: 'Este rut no es valido.', maxlength: " Máximo 12 digitos."},
+                Etelefono: {required: 'Debe ingresar un telefono',  maxlength: " Máximo 9 digitos.",  minlength: " Minimo 9 digitos."},
+                Ecorreo: {required: 'Debe ingresar un correo', email: 'Debe ingresar un correo valido', maxlength: " Máximo 30 digitos."},
+                Enombre_contacto: {required: 'Debe ingresar un nombre',  minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 digitos."}
+
             }
         });
   $(document).ready(function() {

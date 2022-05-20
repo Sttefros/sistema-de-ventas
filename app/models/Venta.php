@@ -1,31 +1,16 @@
 <?php
 
-	class Producto{
+	class Venta{
 		private $db;
 
 		public function __construct(){
 			$this->db = new Base;
 		}
 
-		public function listaProducto(){
-			$this->db->query("SELECT prod.*,  prov.nombre_proveedor, prod_tip.nombre_prod_tipo FROM producto prod INNER JOIN proveedor prov on prod.id_proveedor = prov.id_proveedor LEFT JOIN producto_tipo prod_tip ON prod.id_prod_tipo = prod_tip.id_prod_tipo");
+		public function listaVenta(){
+			$this->db->query("SELECT * FROM venta");
 
 			return json_decode(json_encode($this->db->registros()), true);
-		}
-
-		public function listaSelectProducto(){
-			$this->db->query("SELECT id_producto as id, concat_ws(' - ', nombre_producto, sku) as text FROM producto");
-
-			return json_decode(json_encode($this->db->registros()), true);
-			
-		}
-		public function SelectProducto($codigo){
-			$this->db->query("SELECT * FROM producto WHERE id_producto = :id_producto LIMIT 1");
-
-			$this->db->bind(':id_producto', $codigo, null);
-
-			return json_decode(json_encode($this->db->registro()), true);
-			
 		}
 
 		public function agregarProducto($datos_agregar){

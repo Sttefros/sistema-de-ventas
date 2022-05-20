@@ -14,7 +14,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
 <div class="login-logo">
-<a href="<?php echo RUTA_URL;?>/index2.html"><b>ALMACEN</b>YUYITA</a>
+<a href="<?php echo RUTA_URL;?>/index2.html"><b>ALMACEN</b>YUYITOS</a>
 </div>
 <form class="login-form validate-form" id="formLogin" action="login" method="post">
 <div class="card">
