@@ -53,7 +53,7 @@
 
 		public function eliminarUsuario($id_eliminar){
 
-			$this->db->query("DELETE FROM usuario WHERE id_usuario = :id_eliminar");
+			$this->db->query("DELETE FROM usuario WHERE id_usuario = :id_eliminar ");
 
 			$this->db->bind(':id_eliminar', $id_eliminar, null);
 

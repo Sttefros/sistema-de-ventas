@@ -51,9 +51,6 @@
                 <th colspan="1">Fiado</th>
                 <th colspan="1">Total Venta</th>
                 <th colspan="1">opciones</th>
-                <th colspan="1">opciones</th>
-                <th colspan="1">opciones</th>
-              </tr>
             </thead>
             <tbody>
              <?php  foreach ($datos['lista_venta'] as $k => $vent){?>
@@ -289,8 +286,6 @@
 $("#nueva_venta").click(function () {
     <?php if(isset($_SESSION['carrito'])) { $_SESSION['carrito'] = []; }?>
 window.location.href = " <?php echo  RUTA_URL;?>/ventas/generar_venta";
-   
-          
           });
 
   $("#add_prod").click(function () {
