@@ -37,7 +37,7 @@
 
 		public function editarProducto_tipo($datos_agregar){
 
-			$this->db->query("");
+			$this->db->query("CALL editarProducto_tipo(:id_prod_tipo, :nombre_prod_tipo)");
 
 			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
 			$this->db->bind(':nombre_prod_tipo', $datos_agregar['nombre_prod_tipo'], null);
