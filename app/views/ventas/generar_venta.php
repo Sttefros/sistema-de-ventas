@@ -404,7 +404,7 @@ $granTotal = 0;
             data: lista_cli,
             placeholder:'Seleccione Cliente',
             width: 'resolve'});
-        var id_cliente_a = <?php if(isset($_SESSION['carrito']['cliente'])){echo $_SESSION['carrito']['cliente'];} ?>;
+        var id_cliente_a = <?php if(isset($_SESSION['carrito']['cliente'])){echo $_SESSION['carrito']['cliente'];} else {echo 0;} ?>;
         $("#id_cliente").val(id_cliente_a);
         $("#id_cliente").trigger("change");
         $("#id_cliente").on("change", function () {

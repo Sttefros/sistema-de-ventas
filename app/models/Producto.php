@@ -14,13 +14,13 @@
 		}
 
 		public function listaSelectProducto(){
-			$this->db->query("SELECT id_producto as id, concat_ws(' - ', nombre_producto, sku) as text FROM producto");
+			$this->db->query("CALL listaSelectProducto()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 			
 		}
 		public function SelectProducto($codigo){
-			$this->db->query("SELECT * FROM producto WHERE id_producto = :id_producto LIMIT 1");
+			$this->db->query("CALL SelectProducto(:id_producto)");
 
 			$this->db->bind(':id_producto', $codigo, null);
 
@@ -30,7 +30,7 @@
 
 		public function agregarProducto($datos_agregar){
 
-			$this->db->query("INSERT INTO producto (`id_prod_tipo`,`id_proveedor`,`sku`,`nombre_producto`,`precio_venta`, `descripcion_producto`, `cantidad`) VALUES (:id_prod_tipo,:id_proveedor,:sku,:nombre_producto,:precio_venta,:descripcion_producto,:cantidad)");
+			$this->db->query("CALL agregarProducto(:id_prod_tipo, :id_proveedor, :sku, :nombre_producto, :precio_venta, :descripcion_producto, :cantidad)");
 
 			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
 			$this->db->bind(':id_proveedor', $datos_agregar['id_proveedor'], null);
@@ -49,7 +49,7 @@
 		}
 		public function editarProducto($datos_agregar){
 
-			$this->db->query("UPDATE  producto SET `id_prod_tipo`= :id_prod_tipo,`id_proveedor` = :id_proveedor,`sku` = :sku,`nombre_producto` = :nombre_producto,`precio_venta` = :precio_venta, `descripcion_producto` = :descripcion_producto, `cantidad` = :cantidad WHERE id_producto = :id_producto");
+			$this->db->query("CALL editarProducto(:id_producto, :id_prod_tipo, :id_proveedor, :sku, :nombre_producto, :precio_venta, :descripcion_producto, :cantidad)");
 
 			$this->db->bind(':id_producto', $datos_agregar['id_producto'], null);
 			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
@@ -69,7 +69,7 @@
 		}
 		public function eliminarProducto($id_eliminar){
 
-			$this->db->query("DELETE FROM producto WHERE id_producto = :id_eliminar");
+			$this->db->query("CALL eliminarProducto(:id_eliminar)");
 
 			$this->db->bind(':id_eliminar', $id_eliminar, null);
 
