@@ -17,7 +17,8 @@
 
 			$opciones = array(
 				PDO::ATTR_PERSISTENT => true,
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
 			);
 
 
@@ -65,7 +66,9 @@
 		//OBTENER REGISTROS CONSULTA
 		public function registros(){
 			$this->execute();
-			return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+			$esto = $this->stmt->fetchAll(PDO::FETCH_OBJ);
+			$this->stmt->closeCursor();
+			return $esto;
 		}
 		//obtener 1 registro solo
 		public function registro(){
