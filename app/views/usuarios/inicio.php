@@ -299,7 +299,6 @@
         var correo_usuario = $("#correo_usuario").val();
         var rol_usuario = $("#rol_usuario").val();
         var contrasena_usuario = $("#contrasena_usuario").val();
-        
          $.ajax({
              type: "POST",
              url: "<?php echo  RUTA_URL;?>/usuarios/agregar",

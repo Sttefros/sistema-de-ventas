@@ -8,14 +8,14 @@
 		}
 
         public function listaUsuario(){
-			$this->db->query("SELECT * FROM usuario");
+			$this->db->query("CALL listaUsuario()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}
 
         public function agregarUsuario($datos_agregar){
 
-			$this->db->query("INSERT INTO usuario (`nombre_usuario`, `apellido_usuario`, `correo_usuario`, `rol_usuario`, `contrasena_usuario`) VALUES (:nombre_usuario,:apellido_usuario,:correo_usuario,:rol_usuario,:contrasena_usuario)");
+			$this->db->query("CALL agregarUsuario(:nombre_usuario,:apellido_usuario,:correo_usuario,:rol_usuario,:contrasena_usuario)");
 
 			$this->db->bind(':nombre_usuario', $datos_agregar['nombre_usuario'], null);
 			$this->db->bind(':apellido_usuario', $datos_agregar['apellido_usuario'], null);
@@ -34,7 +34,7 @@
 
 		public function editarUsuario($datos_agregar){
 
-			$this->db->query("UPDATE  usuario SET `nombre_usuario`= :nombre_usuario,`apellido_usuario` = :apellido_usuario,`correo_usuario` = :correo_usuario,`rol_usuario` = :rol_usuario,`contrasena_usuario` = :contrasena_usuario WHERE id_usuario = :id_usuario");
+			$this->db->query("CALL editarUsuario(:nombre_usuario,:apellido_usuario,:correo_usuario,:rol_usuario,:contrasena_usuario,:id_usuario)");
 
 			$this->db->bind(':id_usuario', $datos_agregar['id_usuario'], null);
 			$this->db->bind(':nombre_usuario', $datos_agregar['nombre_usuario'], null);
@@ -53,7 +53,7 @@
 
 		public function eliminarUsuario($id_eliminar){
 
-			$this->db->query("DELETE FROM usuario WHERE id_usuario = :id_eliminar ");
+			$this->db->query("CALL eliminarUsuario(:id_eliminar)");
 
 			$this->db->bind(':id_eliminar', $id_eliminar, null);
 

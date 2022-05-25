@@ -21,7 +21,8 @@
 					'rut' => trim($_POST['rut']),
 					'telefono' => trim($_POST['telefono']),
 					'correo' => trim($_POST['correo']),
-					'nombre_contacto' => trim($_POST['nombre_contacto'])
+					'nombre_contacto' => trim($_POST['nombre_contacto']),
+					'direccion_proveedor' => trim($_POST['direccion_proveedor'])
 					// 'rol_proveedor' => trim($_POST['rol_proveedor'])
 
 
@@ -48,7 +49,8 @@
 					'rut' => trim($_POST['rut']),
 					'telefono' => trim($_POST['telefono']),
 					'correo' => trim($_POST['correo']),
-					'nombre_contacto' => trim($_POST['nombre_contacto'])
+					'nombre_contacto' => trim($_POST['nombre_contacto']),
+					'direccion_proveedor' => trim($_POST['direccion_proveedor'])
 					// 'rol_proveedor' => trim($_POST['rol_proveedor'])
 
 

@@ -157,7 +157,7 @@ $granTotal = 0;?>
                 </div>  
 
                 <div class="text-center">
-                    <button type="button" id="guarda"  class="disabled btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar venta</button>
+                    <button type="button" id="guarda"  class="disabled btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar Pedido</button>
                 </div>
             </div>
             </div>

@@ -8,7 +8,7 @@
 		}
 
         public function listaRol(){
-			$this->db->query("SELECT * FROM rol");
+			$this->db->query("CALL listaRol()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}

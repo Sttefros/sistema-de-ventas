@@ -132,6 +132,13 @@
                             <input type="text" class="form-control" id="nombre_contacto" name="nombre_contacto" placeholder="" >
                         </div>            
                     </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Direccion</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="direccion_proveedor" name="direccion_proveedor" placeholder="" >
+                        </div>            
+                    </div>
                     <!-- <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">Rol Proveedor</label>
 
@@ -195,6 +202,13 @@
 
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="Enombre_contacto" name="Enombre_contacto" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class="form-group dark">
+                        <label for="nombre" class="col-sm-3 control-label">Direccion</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Edireccion_proveedor" name="Edireccion_proveedor" placeholder="" >
                         </div>            
                     </div>
                     <!-- <div class="form-group dark">
@@ -509,11 +523,12 @@ if ($("#valid_prov").valid()) {
     var telefono = $("#telefono").val();
     var correo = $("#correo").val();
     var nombre_contacto = $("#nombre_contacto").val();
+    var direccion_proveedor = $("#direccion_proveedor").val();
     var url = "<?php echo  RUTA_URL;?>/proveedores/agregar";
      $.ajax({
          type: "POST",
          url: url,
-         data: {nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto},
+         data: {nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto,direccion_proveedor:direccion_proveedor},
          success: function (data) {
               console.log('Correctoooo');
                setTimeout(function(){
@@ -545,6 +560,7 @@ if ($("#valid_prov").valid()) {
         $("#Etelefono").val($("#telefono"+key).val());
         $("#Ecorreo").val($("#correo"+key).val());
         $("#Enombre_contacto").val($("#nombre_contacto"+key).val());
+        $("#Edireccion_proveedor").val($("#direccion_proveedor"+key).val());
         $("#ModalEditar").modal({
                 keyboard: false
             });
@@ -564,11 +580,12 @@ if ($("#valid_prov").valid()) {
         var telefono = $("#Etelefono").val();
         var correo = $("#Ecorreo").val();
         var nombre_contacto = $("#Enombre_contacto").val();
+        var direccion_proveedor = $("#Edireccion_proveedor").val();
         var url = "<?php echo  RUTA_URL;?>/proveedores/editar";
          $.ajax({
              type: "POST",
              url: url,
-             data: {id_proveedor: id_proveedor,nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto},
+             data: {id_proveedor: id_proveedor,nombre_proveedor: nombre_proveedor, rut:rut,telefono:telefono,correo:correo,nombre_contacto:nombre_contacto,direccion_proveedor:direccion_proveedor},
              success: function (data) {
                   console.log('Correctoooo');
                    setTimeout(function(){

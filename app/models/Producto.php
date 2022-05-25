@@ -28,6 +28,7 @@
 			
 		}
 
+
 		public function agregarProducto($datos_agregar){
 
 			$this->db->query("INSERT INTO producto (`id_prod_tipo`,`id_proveedor`,`sku`,`nombre_producto`,`precio_venta`, `descripcion_producto`, `cantidad`) VALUES (:id_prod_tipo,:id_proveedor,:sku,:nombre_producto,:precio_venta,:descripcion_producto,:cantidad)");

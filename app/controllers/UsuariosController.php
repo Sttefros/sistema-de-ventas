@@ -24,7 +24,7 @@
 					'nombre_usuario' => trim($_POST['nombre_usuario']),
 					'apellido_usuario' => trim($_POST['apellido_usuario']),
 					'correo_usuario' => strtoupper(trim($_POST['correo_usuario'])),
-					'rol_usuario' => trim($_POST['rol_usuario']),
+					'rol_usuario' => $_POST['rol_usuario'],
 					'contrasena_usuario' => $password_segura
 					
 					
