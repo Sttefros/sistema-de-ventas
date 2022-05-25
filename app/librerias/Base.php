@@ -17,8 +17,7 @@
 
 			$opciones = array(
 				PDO::ATTR_PERSISTENT => true,
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 			);
 
 
@@ -73,11 +72,13 @@
 		//obtener 1 registro solo
 		public function registro(){
 			$this->execute();
-			return $this->stmt->fetch(PDO::FETCH_OBJ);
+			$esto = $this->stmt->fetch(PDO::FETCH_OBJ);
+			return $esto;
 		}
 		//obtener cantidad de filas rowCount
 		public function regisitros(){
 			$this->execute();
-			return $this->stmt->rowCount();
+			$esto = $this->stmt->rowCount();
+			return $esto;
 		}
 	}
