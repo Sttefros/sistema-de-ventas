@@ -3,14 +3,16 @@
 	class UsuariosController extends Controller{
 		public function __construct(){
 			$this->usuarioModelo = $this->modelo('Usuario');
+			$this->rolModelo = $this->modelo('Rol');
 		}
 
 		public function index(){
 
 			$lista_usuario = $this->usuarioModelo->listaUsuario();
+			$lista_rol = $this->rolModelo->listaRol();
 	
 
-			$datos = ['lista_usuario' => $lista_usuario];
+			$datos = ['lista_usuario' => $lista_usuario, 'lista_rol' => $lista_rol];
 
 			$this->vista('usuarios/inicio', $datos);
 		}
@@ -42,6 +44,7 @@
 		}
 		public function editar(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				$password_segura = password_hash(trim($_POST['contrasena_usuario']),PASSWORD_BCRYPT,['cost'=>4]); 
 				$datos_agregar = [
 
 					'id_usuario' => trim($_POST['id_usuario']),
@@ -49,7 +52,7 @@
 					'apellido_usuario' => trim($_POST['apellido_usuario']),
 					'correo_usuario' => strtoupper(trim($_POST['correo_usuario'])),
 					'rol_usuario' => trim($_POST['rol_usuario']),
-					'contrasena_usuario' => trim($_POST['contrasena_usuario'])
+					'contrasena_usuario' => $password_segura
 
 
 

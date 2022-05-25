@@ -14,7 +14,7 @@
                 <input type="hidden" class="hidden" id="telefono<?php echo $k;?>" name="telefono<?php echo $k;?>" value="<?php echo $prov['telefono'];?>">
                 <input type="hidden" class="hidden" id="correo<?php echo $k;?>" name="correo<?php echo $k;?>" value="<?php echo $prov['correo'];?>">
                 <input type="hidden" class="hidden" id="nombre_contacto<?php echo $k;?>" name="nombre_contacto<?php echo $k;?>" value="<?php echo $prov['nombre_contacto'];?>">
-                <input type="hidden" class="hidden" id="rol_proveedor<?php echo $k;?>" name="rol_proveedor<?php echo $k;?>" value="<?php echo $prov['rol_proveedor'];?>">
+                <input type="hidden" class="hidden" id="direccion_proveedor<?php echo $k;?>" name="direccion_proveedor<?php echo $k;?>" value="<?php echo $prov['direccion_proveedor'];?>">
             </div>
                       <?php } ?>
 
@@ -40,9 +40,8 @@
               <tr>
                 <th>nombre</th>
                 <th>rut</th>
-                <th>nombre contacto</th>
-                <th>numero contacto</th>
-                <th>correo contacto</th>
+                <th>direccion</th>
+                <th>contacto</th>
                 <th>opciones</th>
               </tr>
           	</thead>
@@ -51,9 +50,17 @@
               <tr>
                 <td><?php echo $prov['nombre_proveedor'];?></td>
                 <td><?php echo $prov['rut'];?></td>
-                <td><?php echo $prov['nombre_contacto'];?></td>
-                <td><?php echo $prov['telefono'];?></td>
-                <td><?php echo $prov['correo'];?></td>
+                <td><?php echo $prov['direccion_proveedor'];?></td>
+                <td>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <?php echo $prov['nombre_contacto'];?>
+                    <br>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <?php echo $prov['correo'];?>
+                    <br>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <?php echo $prov['telefono'];?>
+                </td>
                 <td colspan="1">
                   </div>
                       

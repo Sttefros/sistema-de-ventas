@@ -18,7 +18,15 @@
             <a href="<?php echo RUTA_URL; ?>/ventas/" class="nav-link">
             <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
               <p>
-                Ventas
+                Venta
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo RUTA_URL; ?>/pedidos/" class="nav-link">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+              <p>
+                Pedidos
               </p>
             </a>
           </li>
@@ -34,7 +42,7 @@
             <a href="<?php echo RUTA_URL; ?>/productos/" class="nav-link">
             <i class="fa fa-cube" aria-hidden="true"></i>&nbsp;
               <p>
-                Productos
+                Stock de productos
               </p>
             </a>
           </li>
@@ -42,7 +50,7 @@
             <a href="<?php echo RUTA_URL; ?>/productotipo/" class="nav-link">
             <i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;
               <p>
-                Tipo de Productos
+                Tipo de productos
               </p>
             </a>
           </li>
