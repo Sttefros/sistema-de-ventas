@@ -8,13 +8,13 @@
 		}
 
         public function listaCliente(){
-			$this->db->query("SELECT * FROM cliente");
+			$this->db->query("CALL listaCliente()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}
 
 		public function listaSelectCliente(){
-			$this->db->query("SELECT id_cliente as id, concat_ws(' - ', nombre_cliente, rut_cliente) as text FROM cliente");
+			$this->db->query("CALL listaSelectCliente()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 			
@@ -22,7 +22,7 @@
 
         public function agregarCliente($datos_agregar){
 
-			$this->db->query("INSERT INTO cliente (`rut_cliente`, `nombre_cliente`, `telefono_cliente`, `direccion_cliente`, `check_fiado`) VALUES (:rut_cliente,:nombre_cliente,:telefono_cliente,:direccion_cliente,:check_fiado)");
+			$this->db->query("CALL agregarCliente(:rut_cliente,:nombre_cliente,:telefono_cliente,:direccion_cliente,:check_fiado)");
 
 			$this->db->bind(':rut_cliente', $datos_agregar['rut_cliente'], null);
 			$this->db->bind(':nombre_cliente', $datos_agregar['nombre_cliente'], null);
