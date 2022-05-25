@@ -58,7 +58,9 @@
                 <td colspan="1"><?php echo $cli['nombre_cliente'];?></td>
                 <td colspan="1"><?php echo $cli['telefono_cliente'];?></td>
                 <td colspan="1"><?php echo $cli['direccion_cliente'];?></td>
-                <td colspan="1"><?php echo $cli['check_fiado'];?></td>
+                <td colspan="1"><?php if($cli['check_fiado'] == 1){echo '<i class="fa fa-check-square text-success" aria-hidden="true"></i>
+'; } else { echo '<i class="fa fa-window-close text-danger" aria-hidden="true"></i>
+';}?></td>
                 <td colspan="1">
                   </div>
                       
@@ -107,14 +109,14 @@
                         <label for="nombre" class="col-sm-3 control-label">Nombre</label>
 
                         <div class="col-sm-9">
-                            <input class="form-control select2" id="nombre_cliente" name="nombre_cliente" placeholder="" >
+                            <input class="form-control" id="nombre_cliente" name="nombre_cliente" placeholder="" >
                         </div>            
                     </div>
                     <div class="form-group dark">
                         <label for="nombre" class="col-sm-3 control-label">telefono</label>
 
                         <div class="col-sm-9">
-                            <input class="number" id="telefono_cliente" name="telefono_cliente" placeholder="" >
+                            <input type="number" class="form-control" id="telefono_cliente" name="telefono_cliente" placeholder="" >
                         </div>            
                     </div>
 
@@ -129,7 +131,7 @@
                         <label for="nombre" class="col-sm-3 control-label">Check Fiado</label>
 
                         <div class="col-sm-9">
-                            <input type="checkbox" class="form-control" id="check_fiado" name="check_fiado" placeholder="" >
+                            <input type="checkbox" class="form-control check_fiado" id="check_fiado" name="check_fiado" placeholder="" data-off-text="NO" data-on-text="SI" >
                         </div>            
                     </div>
                   
@@ -173,7 +175,7 @@
                         <label for="nombre" class="col-sm-3 control-label">telefono</label>
 
                         <div class="col-sm-9">
-                            <input class="number" id="Etelefono_cliente" name="Etelefono_cliente" placeholder="" >
+                            <input type="number" class="form-control" id="Etelefono_cliente" name="Etelefono_cliente" placeholder="" >
                         </div>            
                     </div>
 
@@ -188,7 +190,7 @@
                         <label for="nombre" class="col-sm-3 control-label">Habilitado para fiar</label>
 
                         <div class="col-sm-9">
-                            <input type="checkbox" class="form-control" id="Echeck_fiado" name="Echeck_fiado" placeholder="" >
+                            <input type="checkbox" class="form-control check_fiado" id="Echeck_fiado" name="Echeck_fiado" placeholder="" data-off-text="NO" data-on-text="SI" >
                         </div>            
                     </div>
                     <input type="hidden" class="form-control" id="Eid_cliente" name="Eid_cliente" placeholder="" >
@@ -534,9 +536,9 @@ function editar(key) {
         $("#Echeck_fiado").val($("#check_fiado"+key).val());
         console.log($("#check_fiado"+key).val());
         if(($("#check_fiado"+key).val()) == 1){
-          $('#Echeck_fiado').attr('checked', true);
+          $('#Echeck_fiado').bootstrapSwitch('state', true);
         }else{
-          $('#Echeck_fiado').attr('checked', false);
+          $('#Echeck_fiado').bootstrapSwitch('state', false);
         }
         $("#ModalEditar").modal({
                 keyboard: false
@@ -713,7 +715,9 @@ function editar(key) {
         $('#Erut_cliente').Rut({
             format_on: 'keyup'
         });
-
+    $(".check_fiado").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'))
+    });
 </script>
 
 

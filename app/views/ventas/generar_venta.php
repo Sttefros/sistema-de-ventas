@@ -142,7 +142,7 @@ $granTotal = 0;
                         </div>            
                     </div>
                     <div class=" row form-group dark">
-                    <label  class="col-sm-4 control-label  text-right" data-on-text="SI" data-off-text="NO">Fiado</label>
+                    <label  class="col-sm-4 control-label  text-right" >Fiado</label>
                     <div class="col-sm-4 text-left">
                             <input type="checkbox" class="form-control " id="Ncheck_fiado" name="Ncheck_fiado" placeholder="" data-off-text="NO" data-on-text="SI" >
                         </div>            
