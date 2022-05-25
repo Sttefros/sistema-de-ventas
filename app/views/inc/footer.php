@@ -21,7 +21,6 @@
 <!-- AdminLTE App -->
  <script src="<?php echo  RUTA_URL;?>/public/js/adminlte.min.js"></script> 
 
-
 <script src="<?php echo  RUTA_URL;?>/public/plugins/datatables/jquery.dataTables.min.js"></script> 
 <script src="<?php echo  RUTA_URL;?>/public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo  RUTA_URL;?>/public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -40,7 +39,5 @@
 <script src="<?php echo  RUTA_URL;?>/public/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="<?php echo  RUTA_URL;?>/public/plugins/toastr/toastr.min.js"></script>
 <script src="<?php echo  RUTA_URL;?>/public/js/select2.min.js"></script>
-
-
-
+<script src="<?php echo  RUTA_URL;?>/public/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 

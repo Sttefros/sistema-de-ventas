@@ -6,8 +6,11 @@
  require RUTA_APP .'/views/inc/sidebar.php';
 
  if(!isset($_SESSION["carrito"])) {
-    $_SESSION["carrito"] = [];}
-$granTotal = 0;?>
+    $_SESSION["carrito"] = [];
+    }
+    // var_dump($_SESSION["carrito"]);
+$granTotal = 0;
+?>
 <section class="content-wrapper">
 <?php
             if(isset($_GET["status"])){
@@ -62,9 +65,21 @@ $granTotal = 0;?>
     </div>
 
 
-  
-<div class="card card-default color-palette-box">
-          <div class="card-header">
+ <div class="card card-primary card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="false">Cliente</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Nuevo Cliente</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-one-tabContent">
+                  <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                     <div class="card-header">
             <h3 class="card-title">
               <i class="fas fa-tag"></i>
               Datos Cliente
@@ -87,9 +102,67 @@ $granTotal = 0;?>
             <!-- /.col-12 -->
            
             <!-- /.row -->
+          </div>                     
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                   
+                   <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-tag"></i>
+              Nuevo Cliente
+            </h3>
           </div>
-          <!-- /.card-body -->
-</div>
+          <div class="card-body">
+            <div class="col-12">
+                <form  class="panel form-horizontal"  id="datos_comprador" accept-charset="utf-8">
+            <div class="form-horizontal text-center">
+                <div class=" row form-group dark">
+                    <label  class="col-sm-4 control-label  text-right">Rut</label>
+                    <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="Nrut_cliente" name="Nrut_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class=" row form-group dark">
+                    <label  class="col-sm-4 control-label  text-right">Nombre</label>
+                    <div class="col-sm-4 ">
+                            <input class="form-control" id="Nnombre_cliente" name="Nnombre_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class=" row form-group dark">
+                    <label  class="col-sm-4 control-label  text-right">Telefono</label>
+                    <div class="col-sm-4 ">
+                            <input class="form-control" type="number" id="Ntelefono_cliente" name="Ntelefono_cliente" placeholder="" >
+                        </div>            
+                    </div>
+
+                    <div class=" row form-group dark">
+                    <label  class="col-sm-4 control-label  text-right">Dirección</label>
+                    <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="Ndireccion_cliente" name="Ndireccion_cliente" placeholder="" >
+                        </div>            
+                    </div>
+                    <div class=" row form-group dark">
+                    <label  class="col-sm-4 control-label  text-right" data-on-text="SI" data-off-text="NO">Fiado</label>
+                    <div class="col-sm-4 text-left">
+                            <input type="checkbox" class="form-control " id="Ncheck_fiado" name="Ncheck_fiado" placeholder="" data-off-text="NO" data-on-text="SI" >
+                        </div>            
+                    </div>
+
+                
+            </div>
+        </form>
+            </div>
+            <!-- /.col-12 -->
+           
+            <!-- /.row -->
+          </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /.card -->
+            </div> 
+
 
 <div class="card card-default color-palette-box">
           <div class="card-header">
@@ -143,7 +216,8 @@ $granTotal = 0;?>
                             </tr>
                         </thead>
                         <tbody>
-                           <?php $_SESSION = json_decode(json_encode($_SESSION), true); foreach($_SESSION["carrito"] as $indice => $producto){ 
+                           <?php $_SESSION = json_decode(json_encode($_SESSION), true);
+                            if(isset($_SESSION['carrito']['producto'])){ foreach($_SESSION['carrito']['producto'] as $indice => $producto){ 
                         $granTotal += $producto['total'];
                     ?>
                 <tr>
@@ -151,11 +225,22 @@ $granTotal = 0;?>
                     <td><?php echo $producto['sku']; ?></td>
                     <td><?php echo $producto['nombre_producto']; ?></td>
                     <td><?php echo $producto['precio_venta']; ?></td>
-                    <td><?php echo $producto['cantidad_v']; ?></td>
+                    <td>
+                        <div class="btn-group">
+                        <button type="button " class="btn btn-default col-2 menos" id="menos<?php echo $producto['id_producto'] ;?>">
+                          <i class="fas fa-minus"></i>
+                        </button>
+                       <input class="number cant_vent col-2 text-center" disabled id="cantidad_venta<?php echo $producto['id_producto'] ;?>" name="cantidad_venta<?php echo $producto['id_producto'] ;?>" placeholder="" value="<?php echo $producto['cantidad_v']; ?>">
+                        </button>
+                        <button type="button" class="btn btn-default col-2 mas" id="mas<?php echo $producto['id_producto'] ;?>">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                        </td>
                     <td><?php echo $producto['total']; ?></td>
                     <td><a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=" . $indice?>"><i class="fa fa-trash"></i></a></td>
                 </tr>
-                <?php } ?>
+                <?php }} ?>
                         </tbody>
                     </table>
                 </div>
@@ -218,117 +303,55 @@ $granTotal = 0;?>
 <?php require RUTA_APP .'/views/inc/footer.php';?>
 
 <script>
+    $("#Ncheck_fiado").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'))
+    });
+    $(".mas").on('click', function(){
+        var idv = this.id.substr(3, 100);
+        var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) + 1;
+
+       console.log(idv);
+       console.log(cantidad_venta);
+
+            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_producto: idv, cant: cantidad_venta},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/ventas/generar_venta';
+
+                }//success
+            });
+    });
+
+    $(".menos").on('click', function(){
+        var idv = this.id.substr(5, 100);
+        var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) - 1;
+
+            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_producto: idv, cant: cantidad_venta},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/ventas/generar_venta';
+
+                }//success
+            });
+    });
+
     var count2 = 1;
     var fila_incremental = 1;
     function numero_miles(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
-    function precio_general() {
-        var precio_general = 0;
-        var cantidad_elementos = 0;
-        $('.precios').each(function () {
-            var precio_vuelta = parseInt($(this).val());
-            precio_general = precio_general + precio_vuelta;
-            cantidad_elementos++;
-        });
-        var precio_accesorios = 0;
-        $('.accesorio_extras_precio').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_accesorios += precio_vuelta2;
-        });
-        $('#cantidad_cortinas').text(cantidad_elementos);
-        $('#monto_instalacion_text').text('$ ' + numero_miles(cantidad_elementos * $('#monto_instalacion_cu').val()));
-        $('#monto_instalacion').val(cantidad_elementos * $('#monto_instalacion_cu').val());
-
-        $('#text_precio_total').text('$ ' + numero_miles(precio_general + precio_accesorios));
-        $('#precio').val(precio_general);
-        $('#precio_accesorios').val(precio_accesorios);
-    }
-    function precio_descuento() {
-        var precio_adicional = 0;
-        var precio_general = $('#precio').val();
-        var descuento = $('#precio_descuento').val() / 100;
-        var precio_instalacion = $('#monto_instalacion').val();
-        $('.precio-adicional').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_adicional += precio_vuelta2;
-        });
-        var precio_accesorios = 0;
-        $('.accesorio_extras_precio').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_accesorios += precio_vuelta2;
-        });
-        var precio_descuento = Math.round(((parseInt(precio_general) + parseInt(precio_adicional)) * descuento));
-
-        var precio_final = Math.round((parseInt(precio_general) + parseInt(precio_adicional) - parseInt(precio_descuento) + parseInt(precio_instalacion) + parseInt(precio_accesorios)) * 1.19);
-        var precio_final_no_iva = Math.round(parseInt(precio_general) + parseInt(precio_adicional) - parseInt(precio_descuento) + parseInt(precio_instalacion) + parseInt(precio_accesorios));
-        $('#precio_final').val(precio_final_no_iva);
-        $('#text_iva').text('$ ' + numero_miles(precio_final - precio_final_no_iva));
-        $('#text_precio_final').text('$ ' + numero_miles(precio_final));
-        $('#text_descuento').text('$ ' + numero_miles(parseInt(precio_descuento)));
-    }
    
-        
-       
-    function eliminarRow(row) {
-        $('.minusbtn').tooltip('destroy');
-        if ($(".test >tbody >tr").length == 1) {
-            $('.test').addClass('hidden');
-            $('#menTabla').removeClass('hidden');
-            $('#guarda').addClass('disabled');
-        }
-        $("#tr" + row).hide(350, function () {
-            $("#tr" + row).remove();
-            precio_general();
-            precio_descuento();
-            var numero_fila = 1;
-            $('.fila_numero').each(function () {
-                $(this).text(numero_fila);
-                numero_fila += 1;
-            });
-        });
-        $('[rel=tooltip]').tooltip({container: 'body'});
-    }
-
-
-    
-   
-    function editarRow(row) {
-        var ancho = $('#ancho' + row).val();
-        var ancho_min = $('#ancho_min' + row).val();
-        var ancho_max = $('#ancho_max' + row).val();
-        var alto = $('#alto' + row).val();
-        var alto_min = $('#alto_min' + row).val();
-        var alto_max = $('#alto_max' + row).val();
-        var ubicacion = $('#ubicacion' + row).val();
-        $('#anchoedit').val(ancho);
-        $('#anchoedit').attr('min', ancho_min);
-        $('#anchoedit').attr('max', ancho_max);
-        $('#altoedit').val(alto);
-        $('#altoedit').attr('min', alto_min);
-        $('#altoedit').attr('max', alto_max);
-        $('#ubicacionedit').val(ubicacion);
-        $('#filaedit').val(row);
-        $("#myModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-    function buscar(row) {
-
-        $('#alerta').hide();
-        var index = $(row).parent().parent().index();
-        $("#identificador").val(index);
-        $("#myModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-
-  
-    
-   
-        // $("#datos_comprador").validate({
+// $("#datos_comprador").validate({
         //     rules: {
         //         'nombre_cliente': {required: true},
         //         'fono_cliente': {number: true, required: true, minlength: 9, maxlength: 9},
@@ -377,11 +400,28 @@ $granTotal = 0;?>
         // });
         var lista_cli = <?php echo json_encode($datos['select_cliente']); ?>;
 
-        $("#id_cliente").prepend('<option selected=""></option>').select2({
+        $("#id_cliente").select2({
             data: lista_cli,
             placeholder:'Seleccione Cliente',
-            width: 'resolve'}).on("change", function () {
+            width: 'resolve'});
+        var id_cliente_a = <?php if(isset($_SESSION['carrito']['cliente'])){echo $_SESSION['carrito']['cliente'];} ?>;
+        $("#id_cliente").val(id_cliente_a);
+        $("#id_cliente").trigger("change");
+        $("#id_cliente").on("change", function () {
+            var id = $(this).val();
+            if(id != id_cliente_a){
+            var url = "<?php echo  RUTA_URL;?>/ventas/cambiarCliente";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_cliente: id},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                    window.location.href = '<?php echo  RUTA_URL;?>/ventas/generar_venta';
 
+                }//success
+            });}
         });
         var lista_prod = <?php echo json_encode($datos['select_producto']); ?>;
 
