@@ -41,7 +41,7 @@
 
 		public function editarCliente($datos_agregar){
 
-			$this->db->query("CALL editarCliente(:id_cliente, :rut_cliente, :nombre_cliente, :telefono_cliente, :direccion_cliente, :check_fiado)");
+			$this->db->query("UPDATE  cliente SET `rut_cliente`= :rut_cliente,`nombre_cliente` = :nombre_cliente,`telefono_cliente` = :telefono_cliente,`direccion_cliente` = :direccion_cliente,`check_fiado` = :check_fiado WHERE id_cliente = :id_cliente");
 
 			$this->db->bind(':id_cliente', $datos_agregar['id_cliente'], null);
 			$this->db->bind(':rut_cliente', $datos_agregar['rut_cliente'], null);
@@ -60,7 +60,7 @@
 
 		public function eliminarCliente($id_eliminar){
 
-			$this->db->query("CALL eliminarCliente(:id_eliminar)");
+			$this->db->query("DELETE FROM cliente WHERE id_cliente = :id_eliminar");
 
 			$this->db->bind(':id_eliminar', $id_eliminar, null);
 

@@ -8,7 +8,7 @@
 		}
 
 		public function listaProducto(){
-			$this->db->query("CALL listaProducto()");
+			$this->db->query("SELECT prod.*,  prov.nombre_proveedor, prod_tip.nombre_prod_tipo FROM producto prod INNER JOIN proveedor prov on prod.id_proveedor = prov.id_proveedor LEFT JOIN producto_tipo prod_tip ON prod.id_prod_tipo = prod_tip.id_prod_tipo");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}

@@ -8,7 +8,7 @@
 		}
 
 		public function listarPedido(){
-			$this->db->query("CALL listarPedido()");
+			$this->db->query("SELECT * FROM orden_pedido");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}
