@@ -284,14 +284,14 @@ $("#id_proveedor").prepend('<option selected="" ></option>').select2({
     placeholder:'Seleccione Proveedor',
     width: 'resolve'}).on("change", function () {
         var id = $(this).val();
-        var url = "<?php echo  RUTA_URL;?>/pedidos/seleccionProveedor";
+        var url = "<?php echo  RUTA_URL;?>/productos/seleccionProveedor";
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: {id: id},
                     success: function (data) {
-                          $("#select_rellenar").html(data);
-                        //   console.log(data);
+                        //   $("#select_rellenar").html(data);
+                          console.log(data);
                     }
                 });
 });
