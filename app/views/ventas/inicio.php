@@ -59,9 +59,9 @@
                  
                 <td colspan="1"><?php echo $k+1;?></td>
                 <td colspan="1"><?php echo date("d-m-Y", strtotime($vent['fecha']));?></td>
-                <td colspan="1"><?php echo $vent['tipo_pago'];?></td>
-                <td colspan="1"><?php echo $vent['id_usuario'];?></td>
-                <td colspan="1"><?php echo $vent['id_cliente'];?></td>
+                <td colspan="1"><?php if ($vent['tipo_pago'] == 1){echo 'Efectivo';} else{ echo 'Fiado';}?></td>
+                <td colspan="1"><?php echo $vent['nombre_usuario'];?></td>
+                <td colspan="1"><?php if($vent['id_cliente'] != null && $vent['id_cliente'] != 0){ echo $vent['nombre_cliente']; }else { echo 'Sin Cliente';} ?></td>
                 <td colspan="1"><?php if($vent['check_fiado'] == 1){echo '<i class="fa fa-check-square text-success" aria-hidden="true"></i>
 '; } else { echo '<i class="fa fa-window-close text-danger" aria-hidden="true"></i>
 ';} ?></td>
@@ -504,7 +504,6 @@ window.location.href = " <?php echo  RUTA_URL;?>/ventas/generar_venta";
 
     
  
-    new $.fn.dataTable.FixedHeader( '#table_user' );
 } );
 </script>
 

@@ -114,8 +114,9 @@
     }
 
     $("#nuevo_pedido").click(function () {
-          window.location.href = " <?php echo  RUTA_URL;?>/pedidos/generar_pedido";
-    });
+    <?php if(isset($_SESSION['pedido'])) { $_SESSION['pedido'] = []; }?>
+window.location.href = " <?php echo  RUTA_URL;?>/pedidos/generar_pedido";
+          });
    
   $(document).ready(function() {
 
@@ -154,7 +155,6 @@
 
     
  
-    new $.fn.dataTable.FixedHeader( '#table_user' );
 } );
 </script>
 

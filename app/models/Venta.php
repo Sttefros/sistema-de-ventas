@@ -8,7 +8,7 @@
 		}
 
 		public function listaVenta(){
-			$this->db->query("SELECT * FROM venta");
+			$this->db->query("CALL listaVenta()");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}

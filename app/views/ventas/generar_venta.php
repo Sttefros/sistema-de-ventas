@@ -368,7 +368,14 @@ $granTotal = 0;
             });
     });
     $("#guardar").on('click', function(){
-        document.getElementById("datos_comprador2").submit();
+        var paga = $("#paga_con").val();
+        if(paga >= total_full){
+            document.getElementById("datos_comprador2").submit();
+        } else {
+            toastr.error('Por favor verificar con cuanto paga.','Falta Dinero', '4000' );
+            $("#paga_con").focus();
+        }
+        
     });
     function quitar(id){
         var idv = id;

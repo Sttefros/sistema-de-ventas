@@ -3,8 +3,8 @@
  require RUTA_APP .'/views/inc/topbar.php';
  require RUTA_APP .'/views/inc/sidebar.php';
 
- if(!isset($_SESSION["carrito"])) {
-    $_SESSION["carrito"] = [];}
+ if(!isset($_SESSION["pedido"])) {
+    $_SESSION["pedido"] = [];}
 $granTotal = 0;?>
 <section class="content-wrapper">
 
@@ -58,7 +58,7 @@ $granTotal = 0;?>
           </div>
           <div class="card-body">
             <div class="col-12">
-                <form  class="panel form-horizontal"  id="Generarmedida2" accept-charset="utf-8" method="post" action="agregarAlCarrito">
+                <form  class="panel form-horizontal"  id="Generarmedida2" accept-charset="utf-8" method="post" action="agregarAlPedido">
 
             <div id="select_rellenar"></div>
                              
@@ -88,26 +88,34 @@ $granTotal = 0;?>
                                 <th>#</th>
                                 <th>SKU</th>
                                 <th>Nombre Producto</th>
-                                <th>Precio compra</th>
                                 <th>Cantidad</th>
-                                <th>Total</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                           <?php $_SESSION = json_decode(json_encode($_SESSION), true); foreach($_SESSION["carrito"] as $indice => $producto){ 
+                           <?php $_SESSION = json_decode(json_encode($_SESSION), true);
+                            if(isset($_SESSION['pedido']['producto'])){ foreach($_SESSION['pedido']['producto'] as $indice => $producto){ 
                         $granTotal += $producto['total'];
                     ?>
                 <tr>
                     <td><?php echo $indice+1; ?></td>
                     <td><?php echo $producto['sku']; ?></td>
                     <td><?php echo $producto['nombre_producto']; ?></td>
-                    <td><?php echo $producto['precio_venta']; ?></td>
-                    <td><?php echo $producto['cantidad_v']; ?></td>
-                    <td><?php echo $producto['total']; ?></td>
-                    <td><a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=" . $indice?>"><i class="fa fa-trash"></i></a></td>
+                    <td>
+                        <div class="btn-group">
+                        <button type="button " class="btn btn-default col-2 menos" id="menos<?php echo $producto['id_producto'] ;?>">
+                          <i class="fas fa-minus"></i>
+                        </button>
+                       <input class="number cant_vent col-2 text-center" disabled id="cantidad_venta<?php echo $producto['id_producto'] ;?>" name="cantidad_venta<?php echo $producto['id_producto'] ;?>" placeholder="" value="<?php echo $producto['cantidad_v']; ?>">
+                        </button>
+                        <button type="button" class="btn btn-default col-2 mas" id="mas<?php echo $producto['id_producto'] ;?>">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                        </td>
+                    <td><a class="btn btn-danger"  onclick="quitar(<?php echo $indice; ?>)"> <input type="hidden" id="quitarid" value="<?php echo $indice; ?>"><i class="fa fa-trash"></i></a></td>
                 </tr>
-                <?php } ?>
+                <?php }} ?>
                         </tbody>
                     </table>
                 </div>
@@ -127,22 +135,7 @@ $granTotal = 0;?>
                     </div>
                     <div class="card card-default color-palette-box">
 
-                        <table class="table table-borderless table-responsive-sm">
-                            <tbody>
-                                <tr>
-                                    <td><h4>Precio :</h4><input id="precio" class="oculto" type="hidden" name="precio_total" value="0"><input id="precio_accesorios" class="oculto" type="hidden" name="precio_accesorios_total" value="0"></td>
-                                    <td><h4><span id="text_precio_total"> $<?php echo $granTotal* 0.81 ;?></span></h4></td>
-                                </tr>
-                               <tr>
-                                    <td><h4>IVA :</h4></td>
-                                    <td><h4><span id="text_iva">$<?php echo $granTotal * 0.19 ;?></span></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h3>Precio Final + IVA :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
-                                    <td><h3><span id="text_precio_final">$ <?php echo $granTotal ;?></span></h3></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                       
                         
                     </div>
                     <div class="col-md-4">
@@ -170,131 +163,181 @@ $granTotal = 0;?>
 <?php require RUTA_APP .'/views/inc/footer.php';?>
 
 <script>
+    var total_full = <?php echo $granTotal ; ?>;
+    $("#Ncheck_fiado").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'))
+    });
+    $(".mas").on('click', function(){
+        var idv = this.id.substr(3, 100);
+        var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) + 1;
+            $('#loadinggg').addClass("overlay dark");
 
-var count2 = 1;
+       console.log(idv);
+       console.log(cantidad_venta);
+
+            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_producto: idv, cant: cantidad_venta},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/pedidos/generar_pedido';
+
+                }//success
+            });
+    });
+    $("#paga_con").on('keyup', function(){
+        var vuelto = parseInt($(this).val()) - parseInt(total_full);
+        console.log(vuelto);
+        if(vuelto < 0){
+            $('#guardar').addClass('disabled');
+            $('#text_vuelto').html('$0');
+        } else {
+            $('#text_vuelto').html('$'+ vuelto);
+            $('#guardar').removeClass('disabled');
+
+        }
+        
+    });
+    $(".menos").on('click', function(){
+        var idv = this.id.substr(5, 100);
+        var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) - 1;
+            $('#loadinggg').addClass("overlay dark");
+            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_producto: idv, cant: cantidad_venta},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/pedidos/generar_pedido';
+
+                }//success
+            });
+    });
+    $("#guardar").on('click', function(){
+        var paga = $("#paga_con").val();
+        if(paga >= total_full){
+            document.getElementById("datos_comprador2").submit();
+        } else {
+            toastr.error('Por favor verificar con cuanto paga.','Falta Dinero', '4000' );
+            $("#paga_con").focus();
+        }
+        
+    });
+    function quitar(id){
+        var idv = id;
+        
+            var url = "<?php echo  RUTA_URL;?>/ventas/quitarDelCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {indice: idv},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/pedidos/generar_pedido';
+
+                }//success
+            });
+    };
+
+    var count2 = 1;
     var fila_incremental = 1;
     function numero_miles(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
-    function precio_general() {
-        var precio_general = 0;
-        var cantidad_elementos = 0;
-        $('.precios').each(function () {
-            var precio_vuelta = parseInt($(this).val());
-            precio_general = precio_general + precio_vuelta;
-            cantidad_elementos++;
-        });
-        var precio_accesorios = 0;
-        $('.accesorio_extras_precio').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_accesorios += precio_vuelta2;
-        });
-        $('#cantidad_cortinas').text(cantidad_elementos);
-        $('#monto_instalacion_text').text('$ ' + numero_miles(cantidad_elementos * $('#monto_instalacion_cu').val()));
-        $('#monto_instalacion').val(cantidad_elementos * $('#monto_instalacion_cu').val());
-
-        $('#text_precio_total').text('$ ' + numero_miles(precio_general + precio_accesorios));
-        $('#precio').val(precio_general);
-        $('#precio_accesorios').val(precio_accesorios);
-    }
-    function precio_descuento() {
-        var precio_adicional = 0;
-        var precio_general = $('#precio').val();
-        var descuento = $('#precio_descuento').val() / 100;
-        var precio_instalacion = $('#monto_instalacion').val();
-        $('.precio-adicional').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_adicional += precio_vuelta2;
-        });
-        var precio_accesorios = 0;
-        $('.accesorio_extras_precio').each(function () {
-            var precio_vuelta2 = parseInt($(this).val());
-            precio_accesorios += precio_vuelta2;
-        });
-        var precio_descuento = Math.round(((parseInt(precio_general) + parseInt(precio_adicional)) * descuento));
-
-        var precio_final = Math.round((parseInt(precio_general) + parseInt(precio_adicional) - parseInt(precio_descuento) + parseInt(precio_instalacion) + parseInt(precio_accesorios)) * 1.19);
-        var precio_final_no_iva = Math.round(parseInt(precio_general) + parseInt(precio_adicional) - parseInt(precio_descuento) + parseInt(precio_instalacion) + parseInt(precio_accesorios));
-        $('#precio_final').val(precio_final_no_iva);
-        $('#text_iva').text('$ ' + numero_miles(precio_final - precio_final_no_iva));
-        $('#text_precio_final').text('$ ' + numero_miles(precio_final));
-        $('#text_descuento').text('$ ' + numero_miles(parseInt(precio_descuento)));
-    }
    
-        
-       
-    function eliminarRow(row) {
-        $('.minusbtn').tooltip('destroy');
-        if ($(".test >tbody >tr").length == 1) {
-            $('.test').addClass('hidden');
-            $('#menTabla').removeClass('hidden');
-            $('#guarda').addClass('disabled');
-        }
-        $("#tr" + row).hide(350, function () {
-            $("#tr" + row).remove();
-            precio_general();
-            precio_descuento();
-            var numero_fila = 1;
-            $('.fila_numero').each(function () {
-                $(this).text(numero_fila);
-                numero_fila += 1;
+// $("#datos_comprador").validate({
+        //     rules: {
+        //         'nombre_cliente': {required: true},
+        //         'fono_cliente': {number: true, required: true, minlength: 9, maxlength: 9},
+        //         'correo_cliente': {email: true, required: true, minlength: 6, maxlength: 50},
+        //         'username': {required: true}
+        //     },
+        //     messages: {
+        //         'nombre_cliente': {required: "Debe ingresar un nombre .", minlength: "Mínimo 4 caracteres", maxlength: " Máximo 50 caracteres."},
+        //         'fono_cliente': {required: "Debe ingresar un numero .", number: "Ingrese Solo Numeros.", minlength: "Ingrese un numero de 9 digitos.", maxlength: " Ingrese un numero de 9 digitos."},
+        //         'correo_cliente': {required: "Debe ingresar un email de contacto", email: "El email no tiene un formato valido.", minlength: "Mínimo 6 caracteres"},
+        //         'username': {required: "Debe ingresar un email de contacto"}
+        //     }
+        // });
+        // $("#Generarmedida2").validate({
+        //     rules: {
+        //         'ubicacion2': {required: true},
+        //         'validar_alto': {number: true, required: true},
+        //         'validar_ancho': {number: true, required: true},
+        //         'cortina_rev': {required: true},
+        //         'opacidad_rev': {required: true},
+        //         'color_rev': {required: true},
+        //         'tela_rev': {required: true}
+        //     },
+        //     messages: {
+        //         'ubicacion2': {required: "Debe ingresar una ubicación."},
+        //         'validar_alto': {required: "Debe ingresar un numero.", number: "Debe ingresar solo numeros.", min: "Debe ingresar una medida mayor o igual a {0}", max: "Debe ingresar una medida menor o igual a {0}"},
+        //         'validar_ancho': {required: "Debe ingresar un numero.", number: "Debe ingresar solo numeros.", min: "Debe ingresar una medida mayor o igual a {0}", max: "Debe ingresar una medida menor o igual a {0}"},
+        //         'cortina_rev': {required: "Seleccione tipo de cortina."},
+        //         'opacidad_rev': {required: "Seleccione una opacidad"},
+        //         'color_rev': {required: "Seleccione un color."},
+        //         'tela_rev': {required: "Seleccione un tipo de tela."}
+
+        //     }
+        // });
+        // $("#revisaredit").validate({
+        //     rules: {
+        //         'anchoedit': {number: true, required: true},
+        //         'altoedit': {number: true, required: true, },
+        //         'ubicacionedit': {required: true}
+        //     },
+        //     messages: {
+        //         'anchoedit': {required: "Debe ingresar un nombre .", min: "Debe ingresar una medida mayor o igual a {0}", max: "Debe ingresar una medida menor o igual a {0}"},
+        //         'altoedit': {required: "Debe ingresar un numero .", number: "Ingrese Solo Numeros.", min: "Debe ingresar una medida mayor o igual a {0}", max: "Debe ingresar una medida menor o igual a {0}"},
+        //         'ubicacionedit': {required: "Ingrese una ubicación."},
+        //     }
+        // });
+         var lista_prov = <?php echo json_encode($datos['select_proveedor']); ?>;
+
+        $("#id_proveedor").select2({
+            data: lista_prov,
+            placeholder:'Seleccione proveedor',
+            width: 'resolve'});
+        var id_prov_a = <?php if(isset($_SESSION['pedido']['proveedor'])){echo $_SESSION['pedido']['proveedor'];} else {echo 0;} ?>;
+        $("#id_proveedor").val(id_prov_a);
+        $("#id_proveedor").trigger("change");
+        $("#id_proveedor").on("change", function () {
+            
+            var id = $(this).val();
+            
+            var url = "<?php echo  RUTA_URL;?>/pedidos/seleccionProveedor";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: id},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                    $('#select_rellenar').html(datos);
+
+                }//success
             });
         });
-        $('[rel=tooltip]').tooltip({container: 'body'});
-    }
+        var lista_prod = <?php echo json_encode($datos['select_producto']); ?>;
 
+        $("#id_producto").prepend('<option selected=""></option>').select2({
+            data: lista_prod,
+            placeholder:'Seleccione producto',
+            width: 'resolve'});
 
-    
+ $( document ).ready(function() {
    
-    function editarRow(row) {
-        var ancho = $('#ancho' + row).val();
-        var ancho_min = $('#ancho_min' + row).val();
-        var ancho_max = $('#ancho_max' + row).val();
-        var alto = $('#alto' + row).val();
-        var alto_min = $('#alto_min' + row).val();
-        var alto_max = $('#alto_max' + row).val();
-        var ubicacion = $('#ubicacion' + row).val();
-        $('#anchoedit').val(ancho);
-        $('#anchoedit').attr('min', ancho_min);
-        $('#anchoedit').attr('max', ancho_max);
-        $('#altoedit').val(alto);
-        $('#altoedit').attr('min', alto_min);
-        $('#altoedit').attr('max', alto_max);
-        $('#ubicacionedit').val(ubicacion);
-        $('#filaedit').val(row);
-        $("#myModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-    function buscar(row) {
-
-        $('#alerta').hide();
-        var index = $(row).parent().parent().index();
-        $("#identificador").val(index);
-        $("#myModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-    var lista_prov = <?php echo json_encode($datos['select_proveedor']); ?>;
-
-$("#id_proveedor").prepend('<option selected="" ></option>').select2({
-    data: lista_prov,
-    placeholder:'Seleccione Proveedor',
-    width: 'resolve'}).on("change", function () {
-        var id = $(this).val();
-        var url = "<?php echo  RUTA_URL;?>/pedidos/seleccionProveedor";
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {id: id},
-                    success: function (data) {
-                          $("#select_rellenar").html(data);
-                        //   console.log(data);
-                    }
-                });
+   $("#id_proveedor").trigger("change");
 });
+    
+
+   
 
     
 </script>
