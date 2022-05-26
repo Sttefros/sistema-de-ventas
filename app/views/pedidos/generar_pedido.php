@@ -333,7 +333,9 @@ $granTotal = 0;?>
 
  $( document ).ready(function() {
    
+
    $("#id_proveedor").trigger("change");
+
 });
     
 
