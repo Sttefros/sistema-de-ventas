@@ -204,7 +204,7 @@
 
 						foreach ($_SESSION["carrito"]['producto'] as $producto) {
 								$this->detalle_ventaModelo->terminarVenta($producto, $idVenta);
-
+								$this->productoModelo->cambiarStock($producto);								
 							}
 						
 

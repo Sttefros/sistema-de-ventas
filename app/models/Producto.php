@@ -28,6 +28,16 @@
 			
 		}
 
+		public function cambiarStock($codigo){
+			$this->db->query("UPDATE producto SET cantidad = :cantidad_nueva WHERE id_producto = :id_producto");
+
+			$this->db->bind(':id_producto', $codigo['id_producto'], null);
+			$this->db->bind(':cantidad_nueva', $codigo['cantidad']-$codigo['cantidad_v'], null);
+
+			return json_decode(json_encode($this->db->registro()), true);
+			
+		}
+
 
 		public function agregarProducto($datos_agregar){
 
