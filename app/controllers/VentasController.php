@@ -161,7 +161,6 @@
 
 				if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					session_start();
-					var_dump($_SESSION['administrador']['id_usuario']);
 					// exit;
 
 						if(isset($_SESSION['carrito']["cliente"]) && $_SESSION['carrito']["cliente"] != 0){
@@ -180,7 +179,7 @@
 
 						} else {
 							$venta = [
-								'id_cliente' => $_SESSION['carrito']["cliente"],
+								'id_cliente' => 0,
 								'id_usuario'=> $_SESSION['administrador']['id_usuario'],
 								'fecha'=> date("Y-m-d H:i:s"),
 								'check_fiado' =>0,

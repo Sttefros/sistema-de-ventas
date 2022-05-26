@@ -15,7 +15,7 @@
 
 		public function terminarVenta($datos_agregar){
 
-			$this->db->query("INSERT INTO venta (`tipo_pago`, `fecha`, `id_usuario`, `id_cliente`, `check_fiado`, `fecha_convenio`, `total_venta`, `total_iva`, `total_venta_iva`) VALUES (1,:fecha,:id_usuario,:id_cliente,:check_fiado,:fecha_convenio,:total_venta,:total_iva,:total_venta_iva)");
+			$this->db->query("INSERT INTO venta (`tipo_pago`, `fecha`, `id_usuario`, `id_cliente`, `check_fiado`, `fecha_convenio`, `total_venta`, `total_iva`, `total_total`) VALUES (1,:fecha,:id_usuario,:id_cliente,:check_fiado,:fecha_convenio,:total_venta,:total_iva,:total_venta_iva)");
 
 			$this->db->bind(':id_cliente', $datos_agregar['id_cliente'], null);
 			$this->db->bind(':id_usuario', $datos_agregar['id_usuario'], null);
