@@ -34,7 +34,7 @@
 			$this->db->bind(':id_producto', $codigo['id_producto'], null);
 			$this->db->bind(':cantidad_nueva', $codigo['cantidad']-$codigo['cantidad_v'], null);
 
-			return json_decode(json_encode($this->db->registro()), true);
+			return json_decode(json_encode($this->db->execute()), true);
 			
 		}
 
