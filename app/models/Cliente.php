@@ -74,7 +74,7 @@
 
 		public function ultimoCliente(){
 
-			$this->db->query("CALL ultimoCliente()");
+			$this->db->query("SELECT * FROM cliente ORDER BY id_cliente desc LIMIT 1");
 			return json_decode(json_encode($this->db->registro()), true);
 		}
 	}
