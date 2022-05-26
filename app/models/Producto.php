@@ -29,7 +29,7 @@
 		}
 
 		public function cambiarStock($codigo){
-			$this->db->query("UPDATE producto SET cantidad = :cantidad_nueva WHERE id_producto = :id_producto");
+			$this->db->query("CALL cambiarStock(:id_producto,:cantidad_nueva)");
 
 			$this->db->bind(':id_producto', $codigo['id_producto'], null);
 			$this->db->bind(':cantidad_nueva', $codigo['cantidad']-$codigo['cantidad_v'], null);
@@ -38,7 +38,7 @@
 		}
 		
 		public function SelectProductoProveedor($codigo){
-			$this->db->query("SELECT id_producto as id, concat_ws(' - ', nombre_producto, sku) as text FROM producto WHERE id_proveedor = :id_proveedor");
+			$this->db->query("CALL SelectProductoProveedor(:id_proveedor)");
 
 			$this->db->bind(':id_proveedor', $codigo, null);
 
