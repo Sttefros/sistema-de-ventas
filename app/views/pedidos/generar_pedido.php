@@ -60,14 +60,8 @@ $granTotal = 0;?>
             <div class="col-12">
                 <form  class="panel form-horizontal"  id="Generarmedida2" accept-charset="utf-8" method="post" action="agregarAlCarrito">
 
-            
-                <div class=" row form-group dark">
-                    <label  class="col-sm-4 control-label  text-right">Producto</label>
-                    <div class="col-sm-4 ">
-                        <select name="id_producto" id="id_producto" ></select>
-                        <!-- <select class="select2" id="id_producto" name="id_producto" placeholder="Seleccione producto"></select> -->
-                    </div>
-                </div>                
+            <div id="select_rellenar"></div>
+                             
                 <div>
                     <div class="bg-light text-right">
                         <button type="submit"  class="btn btn-success btn-flat btn-sm ">Añadir Producto</button>
@@ -94,7 +88,7 @@ $granTotal = 0;?>
                                 <th>#</th>
                                 <th>SKU</th>
                                 <th>Nombre Producto</th>
-                                <th>Precio Venta</th>
+                                <th>Precio compra</th>
                                 <th>Cantidad</th>
                                 <th>Total</th>
                                 
@@ -289,19 +283,19 @@ $("#id_proveedor").prepend('<option selected="" ></option>').select2({
     data: lista_prov,
     placeholder:'Seleccione Proveedor',
     width: 'resolve'}).on("change", function () {
-
+        var id = $(this).val();
+        var url = "<?php echo  RUTA_URL;?>/productos/seleccionProveedor";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {id: id},
+                    success: function (data) {
+                        //   $("#select_rellenar").html(data);
+                          console.log(data);
+                    }
+                });
 });
-var lista_prod = <?php echo json_encode($datos['select_producto']); ?>;
 
-$("#id_producto").prepend('<option selected=""></option>').select2({
-    data: lista_prod,
-    placeholder:'Seleccione producto',
-    width: 'resolve'}).on("change", function () {
-
-
-    var id = $(this).val();
-   
-});
     
 </script>
 

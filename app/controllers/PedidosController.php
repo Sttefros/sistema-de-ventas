@@ -82,5 +82,14 @@
 			
 		}
 
+		public function seleccionProveedor(){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+				$id = $_POST['id'];
+				$datos = ['listaproductos' => $this->productoModelo->SelectProductoProveedor($id)]  ;
+				$datos = json_decode(json_encode($datos), true);
+				$this->vista('pedidos/seleccionProveedor',$datos);
+			}
+		}
 		
 	}

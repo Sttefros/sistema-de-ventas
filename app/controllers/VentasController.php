@@ -170,7 +170,7 @@
 								'id_usuario'=> $_SESSION['administrador']['id_usuario'],
 								'fecha'=> date("Y-m-d H:i:s"),
 								'check_fiado' =>0,
-								'fecha_convenio' =>'0000-00-00 00:00:00',
+								'fecha_convenio' =>'1000-01-01 00:00:00',
 								'total_venta' =>$_SESSION['carrito']["total_venta"] *0.81,
 								'total_iva'=> $_SESSION['carrito']["total_venta"] *0.19,
 								'total_venta_iva'=> $_SESSION['carrito']["total_venta"] 
@@ -183,7 +183,7 @@
 								'id_usuario'=> $_SESSION['administrador']['id_usuario'],
 								'fecha'=> date("Y-m-d H:i:s"),
 								'check_fiado' =>0,
-								'fecha_convenio' =>'0000-00-00 00:00:00',
+								'fecha_convenio' =>'1000-01-01 00:00:00',
 								'total_venta' =>$_SESSION['carrito']["total_venta"] *0.81,
 								'total_iva'=> $_SESSION['carrito']["total_venta"] *0.19,
 								'total_venta_iva'=> $_SESSION['carrito']["total_venta"] 

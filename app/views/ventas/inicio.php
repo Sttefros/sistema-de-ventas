@@ -69,9 +69,7 @@
                 <td colspan="1">
                   </div>
                       
-                        <a onclick="editar(<?php echo $k;?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="Editar"><i class="fa fa-pen"></i></a>
-                        
-                        <a onclick="borrar(<?php echo $vent['id_producto'];?>, '<?php echo $vent['nombre_producto'];?>')" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="Borrar Usuario"><i class="fa fa-trash"></i></a>
+                        <a onclick="" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="detalle"><i class="fa fa-trash"></i></a>
                     </div>
                   </td>
               </tr>
