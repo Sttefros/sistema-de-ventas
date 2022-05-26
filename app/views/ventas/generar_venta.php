@@ -7,6 +7,7 @@
 
  if(!isset($_SESSION["carrito"])) {
     $_SESSION["carrito"] = [];
+    $_SESSION["carrito"]['cliente'] = '0';
     }
     // var_dump($_SESSION["carrito"]);
 $granTotal = 0;
@@ -87,7 +88,7 @@ $granTotal = 0;
           </div>
           <div class="card-body">
             <div class="col-12">
-                <form  class="panel form-horizontal"  id="datos_comprador" accept-charset="utf-8">
+                <form  class="panel form-horizontal"  id="datos_comprador2" accept-charset="utf-8" method="post" action="terminarVenta">
             <div class="form-horizontal text-center">
                 <div class=" row form-group dark">
                     <label  class="col-sm-4 control-label">Rut</label>
@@ -114,7 +115,7 @@ $granTotal = 0;
           </div>
           <div class="card-body">
             <div class="col-12">
-                <form  class="panel form-horizontal"  id="datos_comprador" accept-charset="utf-8">
+                <form  class="panel form-horizontal"  id="datos_comprador" accept-charset="utf-8" method="post" action="agregarClienteVenta">
             <div class="form-horizontal text-center">
                 <div class=" row form-group dark">
                     <label  class="col-sm-4 control-label  text-right">Rut</label>
@@ -148,8 +149,8 @@ $granTotal = 0;
                         </div>            
                     </div>
 
-                
-            </div>
+                <hr>
+                    <button type="submit" class="btn btn-block btn-primary btn-flat">Primary</button>
         </form>
             </div>
             <!-- /.col-12 -->
@@ -171,7 +172,7 @@ $granTotal = 0;
               Añadir Producto
             </h3>
           </div>
-          <div class="card-body">
+          <div class="card-body overlay-wrapper" >
             <div class="col-12">
                 <form  class="panel form-horizontal"  id="Generarmedida2" accept-charset="utf-8" method="post" action="agregarAlCarrito">
 
@@ -238,7 +239,7 @@ $granTotal = 0;
                       </div>
                         </td>
                     <td><?php echo $producto['total']; ?></td>
-                    <td><a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=" . $indice?>"><i class="fa fa-trash"></i></a></td>
+                    <td><a class="btn btn-danger"  onclick="quitar(<?php echo $indice; ?>)"> <input type="hidden" id="quitarid" value="<?php echo $indice; ?>"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 <?php }} ?>
                         </tbody>
@@ -272,7 +273,15 @@ $granTotal = 0;
                                 </tr>
                                 <tr>
                                     <td><h3>Precio Final + IVA :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
-                                    <td><h3><span id="text_precio_final">$ <?php echo $granTotal ;?></span></h3></td>
+                                    <td><h3><span id="text_precio_final">$ <?php echo $granTotal ; $_SESSION['carrito']['total_venta'] = $granTotal ;?></span></h3></td>
+                                </tr>
+                                <tr>
+                                    <td><h3>Paga con :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
+                                    <td><h3><input type="number" class="form-control" name="" id="paga_con"></h3></td>
+                                </tr>
+                                <tr>
+                                    <td><h3>Vuelto :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
+                                    <td><h3><span id="text_vuelto">$0</span></h3></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -284,7 +293,7 @@ $granTotal = 0;
                 </div>  
 
                 <div class="text-center">
-                    <button type="button" id="guarda"  class="disabled btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar venta</button>
+                    <button type="button" id="guardar" class=" btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar venta</button>
                 </div>
             </div>
             </div>
@@ -303,12 +312,14 @@ $granTotal = 0;
 <?php require RUTA_APP .'/views/inc/footer.php';?>
 
 <script>
+    var total_full = <?php echo $granTotal ; ?>;
     $("#Ncheck_fiado").each(function(){
       $(this).bootstrapSwitch('state', $(this).prop('checked'))
     });
     $(".mas").on('click', function(){
         var idv = this.id.substr(3, 100);
         var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) + 1;
+            $('#loadinggg').addClass("overlay dark");
 
        console.log(idv);
        console.log(cantidad_venta);
@@ -326,11 +337,23 @@ $granTotal = 0;
                 }//success
             });
     });
+    $("#paga_con").on('keyup', function(){
+        var vuelto = parseInt($(this).val()) - parseInt(total_full);
+        console.log(vuelto);
+        if(vuelto < 0){
+            $('#guardar').addClass('disabled');
+            $('#text_vuelto').html('$0');
+        } else {
+            $('#text_vuelto').html('$'+ vuelto);
+            $('#guardar').removeClass('disabled');
 
+        }
+        
+    });
     $(".menos").on('click', function(){
         var idv = this.id.substr(5, 100);
         var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) - 1;
-
+            $('#loadinggg').addClass("overlay dark");
             var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
             $.ajax({
                 type: "POST",
@@ -344,6 +367,25 @@ $granTotal = 0;
                 }//success
             });
     });
+    $("#guardar").on('click', function(){
+        document.getElementById("datos_comprador2").submit();
+    });
+    function quitar(id){
+        var idv = id;
+        
+            var url = "<?php echo  RUTA_URL;?>/ventas/quitarDelCarrito";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {indice: idv},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                window.location.href = '<?php echo  RUTA_URL;?>/ventas/generar_venta';
+
+                }//success
+            });
+    };
 
     var count2 = 1;
     var fila_incremental = 1;
@@ -429,6 +471,7 @@ $granTotal = 0;
             data: lista_prod,
             placeholder:'Seleccione producto',
             width: 'resolve'}).on("change", function () {
+            $('#loadinggg').addClass("overlay dark");
 
 
     

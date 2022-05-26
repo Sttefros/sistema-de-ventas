@@ -13,17 +13,18 @@
 			return json_decode(json_encode($this->db->registros()), true);
 		}
 
-		public function agregarProducto($datos_agregar){
+		public function terminarVenta($datos_agregar){
 
-			$this->db->query("INSERT INTO producto (`id_prod_tipo`,`id_proveedor`,`sku`,`nombre_producto`,`precio_venta`, `descripcion_producto`, `cantidad`) VALUES (:id_prod_tipo,:id_proveedor,:sku,:nombre_producto,:precio_venta,:descripcion_producto,:cantidad)");
+			$this->db->query("INSERT INTO venta (`tipo_pago`, `fecha`, `id_usuario`, `id_cliente`, `check_fiado`, `fecha_convenio`, `total_venta`, `total_iva`, `total_venta_iva`) VALUES (1,:fecha,:id_usuario,:id_cliente,:check_fiado,:fecha_convenio,:total_venta,:total_iva,:total_venta_iva)");
 
-			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
-			$this->db->bind(':id_proveedor', $datos_agregar['id_proveedor'], null);
-			$this->db->bind(':sku', $datos_agregar['sku'], null);
-			$this->db->bind(':nombre_producto', $datos_agregar['nombre_producto'], null);
-			$this->db->bind(':precio_venta', $datos_agregar['precio_venta'], null);
-			$this->db->bind(':descripcion_producto', $datos_agregar['descripcion_producto'], null);
-			$this->db->bind(':cantidad', $datos_agregar['cantidad'], null);
+			$this->db->bind(':id_cliente', $datos_agregar['id_cliente'], null);
+			$this->db->bind(':id_usuario', $datos_agregar['id_usuario'], null);
+			$this->db->bind(':fecha', $datos_agregar['fecha'], null);
+			$this->db->bind(':check_fiado', $datos_agregar['check_fiado'], null);
+			$this->db->bind(':fecha_convenio', $datos_agregar['fecha_convenio'], null);
+			$this->db->bind(':total_venta', $datos_agregar['total_venta'], null);
+			$this->db->bind(':total_iva', $datos_agregar['total_iva'], null);
+			$this->db->bind(':total_venta_iva', $datos_agregar['total_venta_iva'], null);
 
 			
 			if($this->db->execute()){
@@ -32,25 +33,14 @@
 				return false;
 			}
 		}
-		public function editarProducto($datos_agregar){
+		public function ultimaVenta(){
 
-			$this->db->query("UPDATE  producto SET `id_prod_tipo`= :id_prod_tipo,`id_proveedor` = :id_proveedor,`sku` = :sku,`nombre_producto` = :nombre_producto,`precio_venta` = :precio_venta, `descripcion_producto` = :descripcion_producto, `cantidad` = :cantidad WHERE id_producto = :id_producto");
+			$this->db->query("SELECT * FROM venta ORDER BY id_venta DESC LIMIT 1");
 
-			$this->db->bind(':id_producto', $datos_agregar['id_producto'], null);
-			$this->db->bind(':id_prod_tipo', $datos_agregar['id_prod_tipo'], null);
-			$this->db->bind(':id_proveedor', $datos_agregar['id_proveedor'], null);
-			$this->db->bind(':sku', $datos_agregar['sku'], null);
-			$this->db->bind(':nombre_producto', $datos_agregar['nombre_producto'], null);
-			$this->db->bind(':precio_venta', $datos_agregar['precio_venta'], null);
-			$this->db->bind(':descripcion_producto', $datos_agregar['descripcion_producto'], null);
-			$this->db->bind(':cantidad', $datos_agregar['cantidad'], null);
+			return json_decode(json_encode($this->db->registro()), true);;
 
 			
-			if($this->db->execute()){
-				return true;
-			} else {
-				return false;
-			}
+			
 		}
 		public function eliminarProducto($id_eliminar){
 

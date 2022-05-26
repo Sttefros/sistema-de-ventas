@@ -58,14 +58,14 @@
               <tr>
                  
                 <td colspan="1"><?php echo $k+1;?></td>
-                <td colspan="1"><?php echo date("d-m-Y H:i", strtotime($vent['fecha']));?></td>
+                <td colspan="1"><?php echo date("d-m-Y", strtotime($vent['fecha']));?></td>
                 <td colspan="1"><?php echo $vent['tipo_pago'];?></td>
                 <td colspan="1"><?php echo $vent['id_usuario'];?></td>
                 <td colspan="1"><?php echo $vent['id_cliente'];?></td>
-                <td colspan="1"><?php echo $vent['check_fiado'];?></td>
+                <td colspan="1"><?php if($vent['check_fiado'] == 1){echo '<i class="fa fa-check-square text-success" aria-hidden="true"></i>
+'; } else { echo '<i class="fa fa-window-close text-danger" aria-hidden="true"></i>
+';} ?></td>
                 <td colspan="1"><?php echo '$'.$vent['total_venta_iva'];?></td>
-                <td colspan="1"><?php echo '$'.$vent['check_fiado'];?></td>
-                <td colspan="1"><?php echo '$'.$vent['check_fiado'];?></td>
                 <td colspan="1">
                   </div>
                       

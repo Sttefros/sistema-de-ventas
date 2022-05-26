@@ -3,6 +3,7 @@
 	class VentasController extends Controller{
 		public function __construct(){
 			$this->ventaModelo = $this->modelo('Venta');
+			$this->detalle_ventaModelo = $this->modelo('Detalle_venta');
 			$this->productoModelo = $this->modelo('Producto');
 			$this->clienteModelo = $this->modelo('Cliente');
 			
@@ -36,7 +37,6 @@
 		public function agregarAlCarrito(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				session_start();
-				var_dump($_POST);
 				// exit;
 				if (!isset($_POST["id_producto"])) {
 	    			return;
@@ -107,6 +107,17 @@
 				}
 			}
 
+			public function quitarDelCarrito(){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				session_start();
+				$indice = $_POST["indice"];
+				print_r($indice);
+				array_splice($_SESSION["carrito"]['producto'], $indice, 1);
+				
+				header("Location: ./generar_venta");
+				}
+			}
+
 			public function cambiarCliente(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				session_start();
@@ -122,44 +133,83 @@
 				}
 			}
 
+			public function agregarClienteVenta(){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+				session_start();
+				$cliente = [
+
+					'rut_cliente' => $_POST['Nrut_cliente'],
+					'nombre_cliente' => $_POST['Nnombre_cliente'],
+					'telefono_cliente' => $_POST['Ntelefono_cliente'],
+					'direccion_cliente' => $_POST['Ndireccion_cliente'],
+					'check_fiado' => $_POST['Ncheck_fiado']
+				];
+				$cliente = json_decode(json_encode($cliente), true);
+				$this->clienteModelo->agregarCliente($cliente);
+				$respuesta = $this->clienteModelo->ultimoCliente();
+				$idcliente = $respuesta['id_cliente'];
+	
+				$_SESSION["carrito"]["cliente"] = $idcliente;
+				
+				header("Location: ./generar_venta");
+				}
+			}
+
 
 			public function terminarVenta(){
 
 
 				if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-
-
 					session_start();
+					var_dump($_SESSION['administrador']['id_usuario']);
+					// exit;
 
+						if(isset($_SESSION['carrito']["cliente"]) && $_SESSION['carrito']["cliente"] != 0){
 
-					$total = $_POST["total"];
+							$venta = [
+								'id_cliente' => $_SESSION['carrito']["cliente"],
+								'id_usuario'=> $_SESSION['administrador']['id_usuario'],
+								'fecha'=> date("Y-m-d H:i:s"),
+								'check_fiado' =>0,
+								'fecha_convenio' =>'0000-00-00 00:00:00',
+								'total_venta' =>$_SESSION['carrito']["total_venta"] *0.81,
+								'total_iva'=> $_SESSION['carrito']["total_venta"] *0.19,
+								'total_venta_iva'=> $_SESSION['carrito']["total_venta"] 
 
+							];
 
-					$ahora = date("Y-m-d H:i:s");
+						} else {
+							$venta = [
+								'id_cliente' => $_SESSION['carrito']["cliente"],
+								'id_usuario'=> $_SESSION['administrador']['id_usuario'],
+								'fecha'=> date("Y-m-d H:i:s"),
+								'check_fiado' =>0,
+								'fecha_convenio' =>'0000-00-00 00:00:00',
+								'total_venta' =>$_SESSION['carrito']["total_venta"] *0.81,
+								'total_iva'=> $_SESSION['carrito']["total_venta"] *0.19,
+								'total_venta_iva'=> $_SESSION['carrito']["total_venta"] 
 
+							];
+						
+							
+						}
+						$venta = json_decode(json_encode($venta), true);
 
-					$sentencia = $base_de_datos->prepare("INSERT INTO ventas(fecha, total) VALUES (?, ?);");
-					$sentencia->execute([$ahora, $total]);
+						$respuesta = $this->ventaModelo->terminarVenta($venta);
+						
+						if($respuesta == true){
+							$respuesta = $this->ventaModelo->ultimaVenta();
+							$idVenta = $respuesta['id_venta'];
 
-					$sentencia = $base_de_datos->prepare("SELECT id FROM ventas ORDER BY id DESC LIMIT 1;");
-					$sentencia->execute();
-					$resultado = $sentencia->fetch(PDO::FETCH_OBJ);
+						}
 
-					$idVenta = $resultado === false ? 1 : $resultado->id;
+						foreach ($_SESSION["carrito"]['producto'] as $producto) {
+								$this->detalle_ventaModelo->terminarVenta($producto, $idVenta);
 
-					$base_de_datos->beginTransaction();
-					$sentencia = $base_de_datos->prepare("INSERT INTO productos_vendidos(id_producto, id_venta, cantidad) VALUES (?, ?, ?);");
-					$sentenciaExistencia = $base_de_datos->prepare("UPDATE productos SET existencia = existencia - ? WHERE id = ?;");
-					foreach ($_SESSION["carrito"] as $producto) {
-						$total += $producto->total;
-						$sentencia->execute([$producto->id, $idVenta, $producto->cantidad]);
-						$sentenciaExistencia->execute([$producto->cantidad, $producto->id]);
-					}
-					$base_de_datos->commit();
-					unset($_SESSION["carrito"]);
-					$_SESSION["carrito"] = [];
-					header("Location: ./vender.php?status=1");
+							}
+						
+
+					header("Location: ./");
 			}
 
 			
