@@ -69,7 +69,7 @@
                 <td colspan="1">
                   </div>
                       
-                        <a onclick="" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-danger  btn-outline" data-original-title="detalle"><i class="fa fa-trash"></i></a>
+                        <a onclick="detalle_venta(<?php echo $vent['id_venta']; ?>)" rel="tooltip" href="#" type="button" data-container="body" class="btn  btn-info  btn-outline" data-original-title="detalle"><i class="fa fa-pen"></i></a>
                     </div>
                   </td>
               </tr>
@@ -90,184 +90,30 @@
 
 <?php require RUTA_APP .'/views/inc/usersidebar.php';?>
  
- <div class="modal fade" id="myModal">
+ 
+    <div class="modal fade" id="myModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Agregar Producto</h4>
+              <h4 class="modal-title">Detalle Venta</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal form-bordered" id="valid_prod">
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">SKU</label><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Al dejar en blanco este campo, se generara automaticamente el SKU"></i>
 
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="sku" name="sku" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Nombre</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Tipo Producto</label>
-
-                        <div class="col-sm-9">
-                            <select class="form-control select2" id="id_prod_tipo" name="id_prod_tipo" placeholder="" ></select>
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Proveedor</label>
-
-                        <div class="col-sm-9">
-                            <select class="select2" id="id_proveedor" name="id_proveedor" placeholder="" ></select>
-                        </div>            
-                    </div>
-
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Cantidad</label>
-
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Precio Venta</label>
-
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="precio_venta" name="precio_venta" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label><sup>Opcional</sup>
-
-                        <div class="col-sm-9">
-                            <textarea type="text" class="form-control" id="descripcion_producto" name="descripcion_producto" placeholder="" ></textarea>
-                        </div>            
-                    </div>
+                    <div id="rellenar" >
+                      </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" id="add_prod"  class="btn btn-primary">Guardar</button> 
+              <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cerrar</button>
               <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button> -->
             </div>
-            </form>
+
           </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="ModalEditar">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Editar Producto</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal form-bordered" id="Evalid_prod">
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">SKU</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Esku" name="Esku" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Nombre</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Enombre_producto" name="Enombre_producto" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Tipo Producto</label>
-
-                        <div class="col-sm-9">
-                            <select class="form-control select2" id="Eid_prod_tipo" name="Eid_prod_tipo" placeholder="" ></select>
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Proveedor</label>
-
-                        <div class="col-sm-9">
-                            <select class="select2" id="Eid_proveedor" name="Eid_proveedor" placeholder="" ></select>
-                        </div>            
-                    </div>
-
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Cantidad</label>
-
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="Ecantidad" name="Ecantidad" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Precio Venta</label>
-
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="Eprecio_venta" name="Eprecio_venta" placeholder="" >
-                        </div>            
-                    </div>
-                    <div class="form-group dark">
-                        <label for="nombre" class="col-sm-3 control-label">Descripción Producto</label><sup>Opcional</sup>
-
-                        <div class="col-sm-9">
-                            <textarea type="text" class="form-control" id="Edescripcion_producto" name="Edescripcion_producto" placeholder="" ></textarea>
-                        </div>            
-                    </div>
-                    <input type="hidden" class="form-control" id="Eid_producto" name="Eid_producto" placeholder="" >
-
-            <div class="modal-footer justify-content-between">
-              <button type="button" id="loading-example-tn"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" id="edit_prod"  class="btn btn-primary">Guardar</button> 
-              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button> -->
-            </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="loading_modal" class="modal fade">
-    <div id="load" class="modal-dialog">
-        <div class="panel-body">
-            <label class="text-primary">Cargando. Por favor espere unos segundos...</label>
-            <div class="progress progress-striped active progress-lg" style="height:25px"><div class="progress-bar progress-bar-warning" style="width: 69%;"></div></div>
-        </div>
-    </div>
-</div>
-<div id="ModalEliminar" class="modal fade">
-  <div class="modal-dialog modal-confirm">
-    <div class="modal-content">
-      <div class="modal-header flex-column">
-        <div class="icon-box">
-<i class="fa fa-exclamation-circle fa-6" aria-hidden="true"></i>
-        </div>            
-        <h4 class="modal-title w-100">Estas Seguro?</h4>  
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p id="rellenar"></p>
-            <input type="hidden" class="form-control" id="id_eliminar" name="id_eliminar" placeholder="" >
-
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmar_eliminar">Eliminar</button>
-      </div>
-    </div>
-  </div>
-</div>  
-    
 <?php require RUTA_APP .'/views/inc/footer.php';?>
 <script>
     $(function () {
@@ -445,10 +291,21 @@ window.location.href = " <?php echo  RUTA_URL;?>/ventas/generar_venta";
         });
 
 
-    function borrar(id_prod, nombre) {
-        $('#rellenar').html('seguro quieres eliminar el producto: <b>'+ nombre +'</b>?');
-        $('#id_eliminar').val(id_prod);
-        $('#ModalEliminar').modal();
+    function detalle_venta(id_prod) {
+        var id_eliminar = id_prod;
+
+                var url = "<?php echo  RUTA_URL;?>/ventas/detalle_venta";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {id: id_eliminar},
+                    success: function (data) {
+                        console.log(data);
+                         $('#rellenar').html(data);
+                         $('#myModal').modal();
+   
+                    }
+                });
     }
     function editar(key) {
         console.log(key);

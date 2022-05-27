@@ -8,7 +8,7 @@
 		}
 
 		public function listaVenta(){
-			$this->db->query("SELECT * FROM venta");
+			$this->db->query("SELECT vent.*,  usua.nombre_usuario , clie.nombre_cliente FROM venta vent INNER JOIN usuario usua on vent.id_usuario = usua.id_usuario LEFT JOIN cliente clie ON vent.id_cliente = clie.id_cliente");
 
 			return json_decode(json_encode($this->db->registros()), true);
 		}

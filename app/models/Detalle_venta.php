@@ -24,5 +24,15 @@
 				return false;
 			}
 		}
-		
+
+		public function detalle_venta($id_venta){
+
+			$this->db->query('SELECT det_vent.*,  prod.*, prod_tip.nombre_prod_tipo FROM detalle_venta det_vent INNER JOIN producto prod on det_vent.id_producto = prod.id_producto LEFT JOIN producto_tipo prod_tip ON prod.id_prod_tipo = prod_tip.id_prod_tipo WHERE det_vent.id_venta = :id_venta');
+			$this->db->bind(':id_venta', $id_venta, null);
+
+
+			$datos = json_decode(json_encode($this->db->registros()), true);
+
+			return $datos;
+		}
 	}

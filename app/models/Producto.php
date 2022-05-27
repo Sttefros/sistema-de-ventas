@@ -28,22 +28,21 @@
 			
 		}
 
-<<<<<<< Updated upstream
+
 		public function cambiarStock($codigo){
 			$this->db->query("UPDATE producto SET cantidad = :cantidad_nueva WHERE id_producto = :id_producto");
 
 			$this->db->bind(':id_producto', $codigo['id_producto'], null);
 			$this->db->bind(':cantidad_nueva', $codigo['cantidad']-$codigo['cantidad_v'], null);
 
-			return json_decode(json_encode($this->db->execute()), true);
-=======
+			return json_decode(json_encode($this->db->execute()), true);}
+			
 		public function SelectProductoProveedor($codigo){
 			$this->db->query("SELECT id_producto as id, concat_ws(' - ', nombre_producto, sku) as text FROM producto WHERE id_proveedor = :id_proveedor");
 
 			$this->db->bind(':id_proveedor', $codigo, null);
 
 			return json_decode(json_encode($this->db->registros()), true);
->>>>>>> Stashed changes
 			
 		}
 

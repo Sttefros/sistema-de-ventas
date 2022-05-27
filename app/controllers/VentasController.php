@@ -118,6 +118,18 @@
 				}
 			}
 
+			public function detalle_venta(){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+				$id = $_POST['id'];
+				$detalle= $this->detalle_ventaModelo->detalle_venta($id);
+				$datos = ['detalle_venta'=> $detalle];
+				$this->vista('ventas/detalle_venta', $datos);
+
+				
+				}
+			}
+
 			public function cambiarCliente(){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				session_start();
@@ -201,11 +213,15 @@
 							$idVenta = $respuesta['id_venta'];
 
 						}
-
+						$_SESSION["carrito"]['producto'] = json_decode(json_encode($_SESSION["carrito"]['producto']), true);
 						foreach ($_SESSION["carrito"]['producto'] as $producto) {
-								$this->detalle_ventaModelo->terminarVenta($producto, $idVenta);
-								$this->productoModelo->cambiarStock($producto);								
-							}
+								if($this->detalle_ventaModelo->terminarVenta($producto, $idVenta)){
+									$this->productoModelo->cambiarStock($producto);								
+									} else{
+										var_dump('expression');
+									die();exit();}
+								}
+								
 						
 
 					header("Location: ./");

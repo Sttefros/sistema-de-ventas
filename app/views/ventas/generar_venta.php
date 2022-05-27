@@ -263,16 +263,9 @@ $granTotal = 0;
 
                         <table class="table table-borderless table-responsive-sm">
                             <tbody>
+                                
                                 <tr>
-                                    <td><h4>Precio :</h4><input id="precio" class="oculto" type="hidden" name="precio_total" value="0"><input id="precio_accesorios" class="oculto" type="hidden" name="precio_accesorios_total" value="0"></td>
-                                    <td><h4><span id="text_precio_total"> $<?php echo $granTotal* 0.81 ;?></span></h4></td>
-                                </tr>
-                               <tr>
-                                    <td><h4>IVA :</h4></td>
-                                    <td><h4><span id="text_iva">$<?php echo $granTotal * 0.19 ;?></span></h4></td>
-                                </tr>
-                                <tr>
-                                    <td><h3>Precio Final + IVA :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
+                                    <td><h3>Precio Final :</h3><input id="precio_final" class="oculto" type="hidden" name="precio_final" value="0"></td>
                                     <td><h3><span id="text_precio_final">$ <?php echo $granTotal ; $_SESSION['carrito']['total_venta'] = $granTotal ;?></span></h3></td>
                                 </tr>
                                 <tr>
