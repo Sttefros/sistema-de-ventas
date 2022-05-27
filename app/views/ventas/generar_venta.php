@@ -363,7 +363,11 @@ $granTotal = 0;
     $("#guardar").on('click', function(){
         var paga = $("#paga_con").val();
         if(paga >= total_full){
+           if(total_full != 0){ 
             document.getElementById("datos_comprador2").submit();
+       } else{
+        toastr.error('Por favor agregar producto al carrito.','No hay productos agregados', '4000' );
+       }
         } else {
             toastr.error('Por favor verificar con cuanto paga.','Falta Dinero', '4000' );
             $("#paga_con").focus();
