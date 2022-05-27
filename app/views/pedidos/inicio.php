@@ -14,9 +14,7 @@
                     <input type="hidden" class="hidden" id="fecha_entrega<?php echo $k;?>" name="fecha_entrega<?php echo $k;?>" value="<?php echo $ped['fecha_entrega'];?>">
                     <input type="hidden" class="hidden" id="estado_entrega<?php echo $k;?>" name="estado_entrega<?php echo $k;?>" value="<?php echo $ped['estado_entrega'];?>">
                     <input type="hidden" class="hidden" id="precio_total_orden<?php echo $k;?>" name="precio_total_orden<?php echo $k;?>" value="<?php echo $ped['precio_total_orden'];?>">
-                    <input type="hidden" class="hidden" id="iva_orden<?php echo $k;?>" name="iva_orden<?php echo $k;?>" value="<?php echo $ped['iva_orden'];?>">
-                    <input type="hidden" class="hidden" id="precio_total_iva_orden<?php echo $k;?>" name="precio_total_iva_orden<?php echo $k;?>" value="<?php echo $ped['precio_total_iva_orden'];?>">
-                    
+                   
                 
                 </div>
                            <?php } ?>
@@ -47,8 +45,6 @@
                 <th colspan="1">Fecha Entrega</th>
                 <th colspan="1">Estado Entrega</th>
                 <th colspan="1">Costo Pedido</th>
-                <th colspan="1">IVA del Pedido</th>
-                <th colspan="1">Total Pedido</th>
                 <th colspan="1">opciones</th>
               </tr>
             </thead>
@@ -57,16 +53,12 @@
              
               <tr>
                  
-                <td colspan="1"><?php echo $k+1;?></td>
-                <td colspan="1"><?php echo date("d-m-Y H:i", strtotime($ped['fecha']));?></td>
                 <td colspan="1"><?php echo $ped['id_orden_pedido'];?></td>
                 <td colspan="1"><?php echo $ped['id_proveedor'];?></td>
                 <td colspan="1"><?php echo date("d-m-Y H:i", strtotime($ped['fecha_pedido']));?></td>
                 <td colspan="1"><?php echo date("d-m-Y H:i", strtotime($ped['fecha_entrega']));?></td>
                 <td colspan="1"><?php echo $ped['estado_entrega'];?></td>
                 <td colspan="1"><?php echo '$'.$ped['precio_total_orden'];?></td>
-                <td colspan="1"><?php echo '$'.$ped['iva_orden'];?></td>
-                <td colspan="1"><?php echo '$'.$ped['precio_total_iva_orden'];?></td>
                 <td colspan="1">
                   </div>
                       

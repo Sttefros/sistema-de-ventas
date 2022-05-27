@@ -30,7 +30,7 @@ $granTotal = 0;?>
           </div>
           <div class="card-body">
             <div class="col-12">
-                <form  class="panel form-horizontal"  id="datos_comprador" accept-charset="utf-8">
+                <form  class="panel form-horizontal"  id="terminarpedido" accept-charset="utf-8" method="post" action="terminarPedido">
             <div class="form-horizontal text-center">
                 <div class=" row form-group dark">
                     <label  class="col-sm-4 control-label">Seleccione un proveedor</label>
@@ -94,7 +94,7 @@ $granTotal = 0;?>
                         </thead>
                         <tbody>
                            <?php $_SESSION = json_decode(json_encode($_SESSION), true);
-                            if(isset($_SESSION['pedido']['producto'])){ foreach($_SESSION['pedido']['producto'] as $indice => $producto){ 
+                          $countlista = 0 ;$granTotal = 0;  if(isset($_SESSION['pedido']['producto'])){  foreach($_SESSION['pedido']['producto'] as $indice => $producto){ $countlista+= $producto['cantidad_v']; ;
                         $granTotal += $producto['total'];
                     ?>
                 <tr>
@@ -106,7 +106,7 @@ $granTotal = 0;?>
                         <button type="button " class="btn btn-default col-2 menos" id="menos<?php echo $producto['id_producto'] ;?>">
                           <i class="fas fa-minus"></i>
                         </button>
-                       <input class="number cant_vent col-2 text-center" disabled id="cantidad_venta<?php echo $producto['id_producto'] ;?>" name="cantidad_venta<?php echo $producto['id_producto'] ;?>" placeholder="" value="<?php echo $producto['cantidad_v']; ?>">
+                       <input class="number cant_vent col-4 text-center" id="cantidad_venta<?php echo $producto['id_producto'] ;?>" name="cantidad_venta<?php echo $producto['id_producto'] ;?>" placeholder="" value="<?php echo $producto['cantidad_v']; ?>">
                         </button>
                         <button type="button" class="btn btn-default col-2 mas" id="mas<?php echo $producto['id_producto'] ;?>">
                           <i class="fas fa-plus"></i>
@@ -115,7 +115,7 @@ $granTotal = 0;?>
                         </td>
                     <td><a class="btn btn-danger"  onclick="quitar(<?php echo $indice; ?>)"> <input type="hidden" id="quitarid" value="<?php echo $indice; ?>"><i class="fa fa-trash"></i></a></td>
                 </tr>
-                <?php }} ?>
+                <?php } $_SESSION['pedido']['cantidad_total'] = $countlista; }  ?>
                         </tbody>
                     </table>
                 </div>
@@ -144,7 +144,7 @@ $granTotal = 0;?>
                 </div>  
 
                 <div class="text-center">
-                    <button type="button" id="guarda"  class="disabled btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar Pedido</button>
+                    <button type="button" id="guarda"  class="btn btn-primary btn-flat btn-lg "><i class="fa fa-hdd-o"></i> Terminar Pedido</button>
                 </div>
             </div>
             </div>
@@ -163,7 +163,8 @@ $granTotal = 0;?>
 <?php require RUTA_APP .'/views/inc/footer.php';?>
 
 <script>
-    var total_full = <?php echo $granTotal ; ?>;
+    var granTotal = <?php echo $granTotal ; ?>;
+    var countlista = <?php echo $countlista ; ?>;
     $("#Ncheck_fiado").each(function(){
       $(this).bootstrapSwitch('state', $(this).prop('checked'))
     });
@@ -175,7 +176,7 @@ $granTotal = 0;?>
        console.log(idv);
        console.log(cantidad_venta);
 
-            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            var url = "<?php echo  RUTA_URL;?>/pedidos/agregarAlPedido";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -205,7 +206,7 @@ $granTotal = 0;?>
         var idv = this.id.substr(5, 100);
         var cantidad_venta = parseInt($("#cantidad_venta"+idv).val()) - 1;
             $('#loadinggg').addClass("overlay dark");
-            var url = "<?php echo  RUTA_URL;?>/ventas/agregarAlCarrito";
+            var url = "<?php echo  RUTA_URL;?>/pedidos/agregarAlPedido";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -218,14 +219,15 @@ $granTotal = 0;?>
                 }//success
             });
     });
-    $("#guardar").on('click', function(){
-        var paga = $("#paga_con").val();
-        if(paga >= total_full){
-            document.getElementById("datos_comprador2").submit();
-        } else {
-            toastr.error('Por favor verificar con cuanto paga.','Falta Dinero', '4000' );
-            $("#paga_con").focus();
-        }
+    $("#guarda").on('click', function(){
+        
+       if(countlista > 0){
+        document.getElementById("terminarpedido").submit();
+       } else{
+        toastr.error('Por favor agregar producto al pedido.','No hay productos agregados', '4000' );
+       }
+            
+       
         
     });
     function quitar(id){
@@ -304,7 +306,7 @@ $granTotal = 0;?>
             data: lista_prov,
             placeholder:'Seleccione proveedor',
             width: 'resolve'});
-        var id_prov_a = <?php if(isset($_SESSION['pedido']['proveedor'])){echo $_SESSION['pedido']['proveedor'];} else {echo 0;} ?>;
+        var id_prov_a = <?php if(isset($_SESSION['pedido']['proveedor'])){echo $_SESSION['pedido']['proveedor'];} else {echo '0';} ?>;
         $("#id_proveedor").val(id_prov_a);
         $("#id_proveedor").trigger("change");
         $("#id_proveedor").on("change", function () {
@@ -338,7 +340,23 @@ $granTotal = 0;?>
 
 });
     
-
+$(".cant_vent").on("change", function () {
+            
+            var idv = this.id.substr(14, 100);
+            var cant = $(this).val();
+            console.log(idv, cant);
+            var url = "<?php echo  RUTA_URL;?>/pedidos/agregarAlPedido";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id_producto: idv,  cant:cant},
+                loading: function () {
+                },
+                success: function (datos) {//success
+                    window.location.href = '<?php echo  RUTA_URL;?>/pedidos/generar_pedido';
+                }//success
+            });
+        });
    
 
     
